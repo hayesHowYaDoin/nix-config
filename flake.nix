@@ -56,8 +56,7 @@
     # Available through 'home-manager --flake .#username@hostname'
     homeConfigurations = {
       "${user.name}@default" = home-manager.lib.homeManagerConfiguration {
-        # home-manager requires 'pkgs' instance
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        pkgs = nixpkgs.legacyPackages.x86_64-linux; # home-manager requires 'pkgs' instance
         
         extraSpecialArgs = { inherit inputs user; };
         modules = [ ./home-manager/home.nix ];
