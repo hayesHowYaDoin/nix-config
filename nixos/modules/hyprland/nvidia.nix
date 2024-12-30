@@ -1,6 +1,9 @@
 { inputs, pkgs, ...}:
 
 {
+  # Enable Hyperland
+  services.xserver.displayManager.gdm.wayland = true;
+
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -17,10 +20,10 @@
     NIXOS_OZONE_WL = "1";
   };
 
-  hardware = {
-    # Opengl
-    graphics.enable = true;
-    # Most wayland compositors need this
-    nvidia.modesetting.enable = true;
-  };
+  # hardware = {
+  #   # Opengl
+  #   graphics.enable = true;
+  #   # Most wayland compositors need this
+  #   nvidia.modesetting.enable = true;
+  # };
 }
