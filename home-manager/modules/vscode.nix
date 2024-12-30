@@ -6,6 +6,7 @@
     vscode-extensions.bbenoist.nix
     vscode-extensions.kamikillerto.vscode-colorize
     vscode-extensions.github.copilot
+    vscode-extensions.github.copilot-chat
   ];
 
   programs.vscode = {
@@ -15,6 +16,7 @@
       pkgs.vscode-extensions.bbenoist.nix
       pkgs.vscode-extensions.kamikillerto.vscode-colorize
       pkgs.vscode-extensions.github.copilot
+      pkgs.vscode-extensions.github.copilot-chat
     ];
     userSettings = {
       # "editor.fontFamily" = "'${theme.monoFontName}', 'monospace', monospace";
