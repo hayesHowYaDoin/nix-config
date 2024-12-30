@@ -10,9 +10,10 @@
     };
 
     nix-colors.url = "github:misterio77/nix-colors";
+    sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-colors, ... } @ inputs: 
+  outputs = { self, nixpkgs, home-manager, nix-colors, sops-nix, ... } @ inputs: 
   let
     # Supported systems
     systems = [
@@ -59,7 +60,10 @@
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # home-manager requires 'pkgs' instance
         
         extraSpecialArgs = { inherit inputs user; };
-        modules = [ ./home-manager/home.nix ];
+        modules = [
+          ./home-manager/home.nix
+          # sops-nix.nixosModules.sops
+        ];
       };
     };
   };

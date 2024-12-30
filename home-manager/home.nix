@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, user, ... }:
+{ inputs, pkgs, user, ... }:
 
 {
   imports = [
@@ -44,7 +44,7 @@
   };
 
   home.sessionVariables = {
-    EDITOR = "codium";
+    EDITOR = "vim";
   };
 
   programs.home-manager.enable = true;

@@ -107,6 +107,7 @@
     vim
     git
     firefox
+    sops
   ];
 
   system.stateVersion = "24.11";
