@@ -19,12 +19,14 @@ in {
 
       "$terminal" = "kitty";
       "$fileManager" = "dolphin";
-      "$menu" = "rofi --show drun";
+      "$menu" = "rofi -show drun";
 
       "$mainMod" = "SUPER";
       bind = [
         "$mainMod, Q, exec, $terminal"
         "$mainMod, C, killactive"
+        "$mainMod, S, exec, $fileManager"
+        "$mainMod, M, exec, $menu"
       ];
     };
   };
