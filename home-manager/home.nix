@@ -7,7 +7,6 @@
     ./modules/obsidian.nix
     ./modules/vscode.nix
     ./modules/hyprland.nix
-    # ./modules/fonts.nix
   ];
 
   # nixpkgs.config.allowUnfree = true;

@@ -1,8 +1,6 @@
 { inputs, pkgs, ...}:
 
 {
-  # programs.hyprland.enable = true;
-
   # Enable Hyperland
   # services.xserver.displayManager.gdm.wayland = true;
 
@@ -14,11 +12,4 @@
     # make sure to also set the portal package, so that they are in sync
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
-
-  # environment.sessionVariables = {
-  #   # If your cursor becomes invisible
-  #   WLR_NO_HARDWARE_CURSORS = "1";
-  #   # Hind electron apps to use the wayland
-  #   NIXOS_OZONE_WL = "1";
-  # };
 }
