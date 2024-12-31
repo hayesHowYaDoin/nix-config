@@ -107,6 +107,7 @@
     git
     firefox
     sops
+    dolphin
   ];
 
   # NVidia drivers
