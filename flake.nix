@@ -9,12 +9,23 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Customizations
     nix-colors.url = "github:misterio77/nix-colors";
-    sops-nix.url = "github:Mic92/sops-nix";
     hyprland.url = "github:hyprwm/Hyprland";
+    hyprland-plugin = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-colors, sops-nix, ... } @ inputs: 
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    nix-colors,
+    hyprland,
+    ...
+  } @ inputs: 
   let
     # Supported systems
     systems = [
@@ -30,6 +41,7 @@
     forAllSystems = nixpkgs.lib.genAttrs systems;
 
     theme = nix-colors.colorSchemes.dracula;
+    
     user = {
       name = "jordan";
       home = "/home/jordan";
@@ -63,7 +75,6 @@
         extraSpecialArgs = { inherit inputs user; };
         modules = [
           ./home-manager/home.nix
-          # sops-nix.nixosModules.sops
         ];
       };
     };
