@@ -6,6 +6,7 @@
     ./modules/kitty.nix
     ./modules/obsidian.nix
     ./modules/vscode.nix
+    ./modules/hyprland.nix
   ];
 
   # nixpkgs.config.allowUnfree = true;
