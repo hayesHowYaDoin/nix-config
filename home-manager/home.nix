@@ -7,6 +7,7 @@
     ./modules/obsidian.nix
     ./modules/vscode.nix
     ./modules/hyprland.nix
+    # ./modules/fonts.nix
   ];
 
   # nixpkgs.config.allowUnfree = true;
@@ -23,11 +24,6 @@
 
   # Enable if not using NixOS
   # targets.genericLinux.enable = true;
-
-  home.packages = [
-    # May eventually be useful -- only install one nerd font vs. ALL of them
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-  ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
