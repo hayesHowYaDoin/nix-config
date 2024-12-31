@@ -108,6 +108,7 @@
     firefox
     sops
     dolphin
+    ranger
   ];
 
   # NVidia drivers
