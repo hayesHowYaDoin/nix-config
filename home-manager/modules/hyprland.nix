@@ -17,9 +17,14 @@ in {
     settings = {
       exec-once = ''${startupScript}/bin/start'';
 
-      "$mod" = "SUPER";
+      "$terminal" = "kitty";
+      "$fileManager" = "dolphin";
+      "$menu" = "rofi --show drun";
+
+      "$mainMod" = "SUPER";
       bind = [
-        "$mod, Q, exec, $terminal"
+        "$mainMod, Q, exec, $terminal"
+        "$mainMod, C, killactive"
       ];
     };
   };
