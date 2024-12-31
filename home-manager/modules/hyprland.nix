@@ -17,8 +17,9 @@ in {
     settings = {
       exec-once = ''${startupScript}/bin/start'';
 
+      "$mod" = "SUPER";
       bind = [
-        # TODO: Configure keybindings
+        "$mod, Q, exec, $terminal"
       ];
     };
   };
