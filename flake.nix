@@ -47,7 +47,7 @@
       desktop = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [
-          ./nixos/hosts/default/configuration.nix
+          ./hosts/desktop/configuration.nix
         ];
       };
     };
@@ -59,7 +59,7 @@
         inherit pkgs;
         extraSpecialArgs = { inherit inputs user pkgs; };
         modules = [
-          ./home-manager/home.nix
+          ./home/home.nix
         ];
       };
     };

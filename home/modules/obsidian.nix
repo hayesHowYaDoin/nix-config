@@ -1,4 +1,4 @@
-{ pkgs, user, theme, ... }:
+{ pkgs, ... }:
 
 {
   home.packages = with pkgs; [
