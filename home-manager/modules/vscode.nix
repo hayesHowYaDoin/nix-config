@@ -1,15 +1,6 @@
 { pkgs, user, theme, ... }:
 
 {
-  # home.packages = with pkgs; [
-  #   vscodium-fhs
-  #   vscode-extensions.bbenoist.nix
-  #   vscode-extensions.kamikillerto.vscode-colorize
-  #   vscode-extensions.ms-vscode-remote.remote-containers
-  #   vscode-extensions.github.copilot
-  #   vscode-extensions.github.copilot-chat
-  # ];
-
   programs.vscode = {
     enable = true;
     package = pkgs.vscode;
