@@ -1,20 +1,22 @@
 { pkgs, user, theme, ... }:
 
 {
-  home.packages = with pkgs; [
-    vscodium
-    vscode-extensions.bbenoist.nix
-    vscode-extensions.kamikillerto.vscode-colorize
-    vscode-extensions.github.copilot
-    vscode-extensions.github.copilot-chat
-  ];
+  # home.packages = with pkgs; [
+  #   vscodium-fhs
+  #   vscode-extensions.bbenoist.nix
+  #   vscode-extensions.kamikillerto.vscode-colorize
+  #   vscode-extensions.ms-vscode-remote.remote-containers
+  #   vscode-extensions.github.copilot
+  #   vscode-extensions.github.copilot-chat
+  # ];
 
   programs.vscode = {
     enable = true;
-    package = pkgs.vscodium;
+    package = pkgs.vscode;
     extensions = [
       pkgs.vscode-extensions.bbenoist.nix
       pkgs.vscode-extensions.kamikillerto.vscode-colorize
+      pkgs.vscode-extensions.ms-vscode-remote.remote-containers
       pkgs.vscode-extensions.github.copilot
       pkgs.vscode-extensions.github.copilot-chat
     ];
@@ -26,6 +28,7 @@
       "colorize.include" = [ "*" ];
       "security.workspace.trust.untrustedFiles" = "open";
       "terminal.integrated.enableImages" = true;
+
       /*
       "workbench.colorCustomizations" = {		
         "activityBar.activeBorder" = "#${theme.colorScheme.blueHex}";
@@ -63,7 +66,7 @@
         "editorGutter.addedBackground" = "#${theme.colorScheme.greenHex}";
         "editorGutter.deletedBackground" = "#${theme.colorScheme.redHex}";
         "editorGutter.modifiedBackground" = "#${theme.colorScheme.blueHex}";
-        "editorLineNumber.activeForeground" = "#${theme.colorScheme.foreground3Hex}";
+        "editorLineNumber.activeForeground" = >"#${theme.colorScheme.foreground3Hex}";
         "editorLineNumber.foreground" = "#${theme.colorScheme.foreground4Hex}";
         "editorOverviewRuler.border" = "#${theme.colorScheme.background1Hex}";
         "editorWidget.background" = "#${theme.colorScheme.background1Hex}";

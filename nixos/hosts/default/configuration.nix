@@ -7,6 +7,7 @@
       ../../modules/hyprland/nvidia.nix
       ../../modules/hyprland/default.nix
       ../../modules/kitty.nix
+      ../../modules/virtualization.nix
     ];
 
   # Bootloader.
@@ -85,7 +86,7 @@
   users.users.jordan = {
     isNormalUser = true;
     description = "Jordan Hayes";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
   };
 
   # Enable automatic login for the user.
@@ -112,7 +113,7 @@
   ];
 
   # NVidia drivers
-  hardware.graphics.enable = true;
+  hardware.opengl.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
@@ -145,6 +146,13 @@
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
+
+  # ??? Allegedly works in place of vscode-server, but idk about all that.
+  # programs.nix-ld.enable = true;
+
+  # VSCode server
+  services.vscode-server.enable = true;
+  services.vscode-server.enableFHS = true;
 
   system.stateVersion = "24.11";
 }

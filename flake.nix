@@ -3,13 +3,12 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Customizations
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
     nix-colors.url = "github:misterio77/nix-colors";
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-plugin = {
@@ -24,21 +23,18 @@
     home-manager,
     nix-colors,
     hyprland,
+    vscode-server,
     ...
-  } @ inputs: 
+  }@inputs: 
   let
     # Supported systems
-    systems = [
-      "aarch64-linux"
-      "i686-linux"
-      "x86_64-linux"
-      "aarch64-darwin"
-      "x86_64-darwin"
-    ];
-
-    # This is a function that generates an attribute by calling a function you
-    # pass to it, with each system as an argument
-    forAllSystems = nixpkgs.lib.genAttrs systems;
+    system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+      config = {
+        allowUnfree = true;
+      };
+    };
     
     user = {
       name = "jordan";
@@ -47,18 +43,13 @@
       email = "jordanhayes98@gmail.com";
     };
   in {
-    # packages = forAllSystems(system: import ./pkgs nixpkgs.legacyPackages.${system});
-    # formatter = forAllSystems(system: nixpkgs.legacyPackages.${system}.alejandra);
-
-    # nixosModules = import ./modules/nixos;
-    # homeManagerModules = import ./modules/home-manager;
-
     # NixOS configuration entrypoints
     # Available through 'nixos-rebuild --flake .#hostname'
     nixosConfigurations = {
       default = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [
+          vscode-server.nixosModules.default
           ./nixos/hosts/default/configuration.nix
         ];
       };
@@ -68,9 +59,8 @@
     # Available through 'home-manager --flake .#username@hostname'
     homeConfigurations = {
       "${user.name}@default" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # home-manager requires 'pkgs' instance
-        
-        extraSpecialArgs = { inherit inputs user; };
+        inherit pkgs;
+        extraSpecialArgs = { inherit inputs user pkgs; };
         modules = [
           ./home-manager/home.nix
         ];
