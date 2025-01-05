@@ -2,12 +2,8 @@
 
 {
   imports = [
-    ./modules/git.nix
-    ./modules/kitty.nix
-    ./modules/obsidian.nix
-    ./modules/vscode.nix
-    ./modules/hyprland.nix
-    ./modules/containers.nix
+    ./modules/cli
+    ./modules/desktop
   ];
 
   home.username = user.name;
