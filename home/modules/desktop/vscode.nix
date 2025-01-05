@@ -1,4 +1,4 @@
-{ pkgs, user, theme, ... }:
+{ pkgs, user, ... }:
 
 {
   programs.vscode = {

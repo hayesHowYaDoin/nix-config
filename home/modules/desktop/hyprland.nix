@@ -7,7 +7,7 @@ let
 
     sleep 1
 
-    ${pkgs.swww}/bin/swww img ${../assets/wallpaper.jpg} &
+    ${pkgs.swww}/bin/swww img ${../../assets/wallpaper.jpg} &
   '';
 in {
   wayland.windowManager.hyprland = {

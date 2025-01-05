@@ -2,11 +2,11 @@
 
 {
   imports = [
-    ./fonts.nix
+    # ./fonts.nix
     ./hyprland.nix
     ./kitty.nix
     ./obsidian.nix
     ./vscode.nix
-    ./waybar.nix
+    # ./waybar.nix
   ];
 }
