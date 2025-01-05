@@ -4,9 +4,9 @@
   imports =
     [
       ./hardware-configuration.nix
+      ../modules/hyprland.nix
       ../modules/nvidia.nix
       ../modules/virtualization.nix
-      # ../modules/hyprland/default.nix
     ];
 
   # Bootloader.
@@ -63,7 +63,7 @@
   hardware.bluetooth.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
