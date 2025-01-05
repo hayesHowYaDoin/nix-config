@@ -8,7 +8,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    vscode-server.url = "github:nix-community/nixos-vscode-server";
     nix-colors.url = "github:misterio77/nix-colors";
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-plugin = {
@@ -23,7 +22,6 @@
     home-manager,
     nix-colors,
     hyprland,
-    vscode-server,
     ...
   }@inputs: 
   let
@@ -46,10 +44,9 @@
     # NixOS configuration entrypoints
     # Available through 'nixos-rebuild --flake .#hostname'
     nixosConfigurations = {
-      default = nixpkgs.lib.nixosSystem {
+      desktop = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [
-          vscode-server.nixosModules.default
           ./nixos/hosts/default/configuration.nix
         ];
       };
@@ -58,7 +55,7 @@
     # Standalone home-manager configuration entrypoint
     # Available through 'home-manager --flake .#username@hostname'
     homeConfigurations = {
-      "${user.name}@default" = home-manager.lib.homeManagerConfiguration {
+      "${user.name}@desktop" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = { inherit inputs user pkgs; };
         modules = [

@@ -147,12 +147,5 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  # ??? Allegedly works in place of vscode-server, but idk about all that.
-  # programs.nix-ld.enable = true;
-
-  # VSCode server
-  services.vscode-server.enable = true;
-  services.vscode-server.enableFHS = true;
-
   system.stateVersion = "24.11";
 }
