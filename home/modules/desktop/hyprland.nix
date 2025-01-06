@@ -25,6 +25,7 @@ in {
         "$terminal" = "kitty";
         "$fileManager" = "nautilus";
         "$menu" = "rofi -show drun";
+        "$browser" = "firefox";
 
         # Modifier keys
         "$mainMod" = "SUPER";
@@ -43,7 +44,7 @@ in {
         };
 
         decoration = {
-          rounding = 5;
+          rounding = 10;
 
           # Applies universally; see windowrulev2 for alternative
           # active_opacity = "0.95";
@@ -93,11 +94,12 @@ in {
 
         bind = [
           # General
-          "$mainMod, Q, exec, $terminal"
-          "$mainMod, C, killactive"
-          "$mainMod, S, exec, $fileManager"
+          "$mainMod, T, exec, $terminal"
+          "$mainMod, Q, killactive"
+          "$mainMod, F, exec, $fileManager"
           "$mainMod, TAB, exec, $menu"
           "$mainMod, J, togglesplit"
+          "$mainMod, B, exec, $browser"
 
           # Focus
           "$mainMod, left, movefocus, l"
