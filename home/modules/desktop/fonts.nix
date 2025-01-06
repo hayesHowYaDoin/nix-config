@@ -1,11 +1,24 @@
-{ pkgs, user, ... }:
+{ config, lib, pkgs, ...}:
 
+with lib; let
+  cfg = config.features.desktop.fonts;
+in
 {
-  home.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
-    fira-code
-    droid-sans-mono
-  ];
+  options.features.desktop.fonts.enable =
+    mkEnableOption "install additional fonts for desktop apps";
 
-  fonts.fontconfig.enable = true;
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      fira-code
+      fira-code-symbols
+      nerd-fonts.fira-code
+      nerd-fonts.jetbrains-mono
+      font-manager
+      font-awesome_5
+      font-awesome
+      noto-fonts-emoji
+      noto-fonts
+      jetbrains-mono
+    ];
+  };
 }

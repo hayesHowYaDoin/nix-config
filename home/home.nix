@@ -18,5 +18,25 @@
     EDITOR = "vim";
   };
 
+  features = {
+    cli = {
+      # zsh.enable = false;
+      # nushell.enable = false;
+      # fish.enable = true;
+      # fzf.enable = true;
+      neofetch.enable = true;
+    };
+    desktop = {
+      fonts.enable = true;
+      # hyprland.enable = true;
+      # wayland.enable = true;
+      # xdg.enable = true;
+    };
+    # themes = {
+      # gtk.enable = true;
+      # qt.enable = true;
+    # };
+  };
+
   programs.home-manager.enable = true;
 }

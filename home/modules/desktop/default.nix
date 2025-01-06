@@ -1,8 +1,8 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   imports = [
-    # ./fonts.nix
+    ./fonts.nix
     ./hyprland.nix
     ./kitty.nix
     ./obsidian.nix
