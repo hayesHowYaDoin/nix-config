@@ -44,8 +44,7 @@ in
 
           "hyprland/language" = {
             format = "{}";
-            format-ar = "🇰🇼 ";
-            format-en = "🇬🇧 ";
+            format-en = "🇺🇸 ";
           };
 
           "tray" = {
@@ -60,14 +59,14 @@ in
 
           "cpu" = {
             interval = 10;
-            format = "🤖 {}%";
+            format = "CPU: {}%";
             max-length = 10;
           };
 
           "memory" = {
             interval = 30;
-            format = "🧠 {}%";
-            format-alt = "🧠 {used:0.1f}GB";
+            format = "RAM: {}%";
+            format-alt = "RAM: {used:0.1f}GB";
             max-length = 10;
           };
 
@@ -138,10 +137,10 @@ in
           };
 
           "custom/weather" = {
-            format = "{}°C";
+            format = "{}°F";
             tooltip = true;
             interval = 3600;
-            exec = "wttrbar --location Kuwait";
+            exec = "wttrbar --location 'Fort Collins' --fahrenheit";
             return-type = "json";
           };
 
