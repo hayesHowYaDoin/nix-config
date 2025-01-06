@@ -29,9 +29,6 @@
     # };
   };
 
-  # Just a lil' test
-  programs.bash.enable = true;
-
   home = {
     username = user.name;
     homeDirectory = user.home;
