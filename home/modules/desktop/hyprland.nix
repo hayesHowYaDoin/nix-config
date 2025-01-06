@@ -2,7 +2,7 @@
 
 with lib; let
   cfg = config.features.desktop.hyprland;
-  wallpaper = "/home/jordan/.config/nix-config/home/assets/wallpaper.jpg";
+  wallpaper = "/home/jordan/.config/nix-config/home/assets/wallpaper.jpeg";
 in {
   options.features.desktop.hyprland.enable = mkEnableOption "hyprland config";
 

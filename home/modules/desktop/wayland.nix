@@ -19,7 +19,7 @@ in
           layer = "top";
           modules-left = [ "custom/launcher" "custom/wg" "cpu" "memory" "custom/weather" "hyprland/workspaces" ];
           modules-center = [ "mpris" ];
-          modules-right = [ "network" "pulseaudio" "backlight" "battery" "tray" "hyprland/language" "custom/wallpaper" "idle_inhibitor" "custom/refresh-rate" "clock" ];
+          modules-right = [ "network" "pulseaudio" "backlight" "battery" "tray" "custom/wallpaper" "idle_inhibitor" "custom/refresh-rate" "clock" ];
 
           "hyprland/workspaces" = {
             format = "{name}";
@@ -40,11 +40,6 @@ in
               "8" = [ ];
               "9" = [ ];
             };
-          };
-
-          "hyprland/language" = {
-            format = "{}";
-            format-en = "🇺🇸 ";
           };
 
           "tray" = {
