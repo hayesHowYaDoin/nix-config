@@ -22,7 +22,7 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Enable networking
+  # Enable networking.
   networking.networkmanager.enable = true;
 
   # Set your time zone.
@@ -50,7 +50,7 @@
   # services.xserver.displayManager.gdm.enable = true;
   # services.xserver.desktopManager.gnome.enable = true;
 
-  # Configure keymap in X11
+  # Configure keymap in X11.
   services.xserver.xkb = {
     layout = "us";
     variant = "";
@@ -59,7 +59,7 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable bluetooth
+  # Enable bluetooth.
   hardware.bluetooth.enable = true;
 
   # Enable sound with pipewire.
@@ -96,10 +96,22 @@
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
 
+  # Query and manipulate storage devices.
+  services.udisks2.enable = true;
+
   # Install firefox.
   programs.firefox.enable = true;
 
-  # Allow unfree packages
+  # Install Steam.
+  # Note: Cannot be configured on a per-user basis with home-manager.
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+  };
+
+  # Allow unfree packages.
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
@@ -107,10 +119,10 @@
     git
     firefox
     sops
-    dolphin
     ranger
     kitty
     killall
+    udiskie
   ];
 
   system.stateVersion = "24.11";
