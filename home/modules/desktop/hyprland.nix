@@ -2,6 +2,7 @@
 
 with lib; let
   cfg = config.features.desktop.hyprland;
+  wallpaper = "/home/jordan/.config/nix-config/home/assets/wallpaper.jpg";
 in {
   options.features.desktop.hyprland.enable = mkEnableOption "hyprland config";
 
@@ -16,6 +17,7 @@ in {
         # Autostart
         exec-once = [
           "waybar"
+          "hyprpaper"
         ];
 
         # Programs
@@ -177,6 +179,18 @@ in {
           ", XF86AudioPause, exec, playerctl play-pause"
           ", XF86AudioPlay, exec, playerctl play-pause"
           ", XF86AudioPrev, exec, playerctl previous"
+        ];
+      };
+    };
+
+    services.hyprpaper = {
+      enable = true;
+      settings = {
+        preload = [
+          "${wallpaper}"
+        ];
+        wallpaper = [
+          ",${wallpaper}"
         ];
       };
     };

@@ -110,6 +110,7 @@
     dolphin
     ranger
     kitty
+    killall
   ];
 
   system.stateVersion = "24.11";
