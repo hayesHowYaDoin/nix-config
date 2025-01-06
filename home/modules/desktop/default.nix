@@ -7,6 +7,7 @@
     ./kitty.nix
     ./obsidian.nix
     ./vscode.nix
-    # ./waybar.nix
+    ./wayland.nix
+    ./xdg.nix
   ];
 }

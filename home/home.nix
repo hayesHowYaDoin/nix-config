@@ -29,8 +29,8 @@
     desktop = {
       fonts.enable = true;
       # hyprland.enable = true;
-      # wayland.enable = true;
-      # xdg.enable = true;
+      wayland.enable = true;
+      xdg.enable = true;
     };
     # themes = {
       # gtk.enable = true;
