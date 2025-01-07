@@ -18,7 +18,7 @@ in {
         exec-once = [
           "waybar"
           "hyprpaper"
-          "hyprlock"
+          "hypridle"
         ];
 
         # Programs
@@ -82,6 +82,7 @@ in {
           "$mainMod, TAB, exec, $menu"
           "$mainMod, J, togglesplit"
           "$mainMod, B, exec, $browser"
+          "$mainMod, L, exec, hyprlock"
 
           # Focus
           "$mainMod, left, movefocus, l"
@@ -244,13 +245,35 @@ in {
       };
     };
 
-    # services.greetd = {
-    #   enable = true;
-    #   settings = {
-    #     default_session = {
-    #       command = "${programs.hyprland.package}/bin/Hyprland";
-    #     };
-    #   };
-    # };
+    services.hypridle = {
+      enable = true;
+      settings = {
+        general = {
+          lock_cmd = "pidof hyprlock || hyprlock";
+          before_sleep_cmd = "hyprlock";
+          after_sleep_cmd = "hyprctl dispatch dpms on"; # Avoids double key press
+        };
+        listener = [
+          {
+            timeout = 60;
+            on-timeout = "brightnessctl -s set 10";
+            on-resume = "brightnessctl -r";
+          }
+          {
+            timeout = 150;
+            on-timeout = "hyprlock";
+          }
+          {
+            timeout = 330;
+            on-timeout = "hyprctl dispatch dpms off";
+            on-resume = "hyprctl dispatch dpms on";
+          }
+          {
+            timeout = 1800;
+            on-timeout = "systemctl suspend";
+          }
+        ];
+      };
+    };
   };
 }
