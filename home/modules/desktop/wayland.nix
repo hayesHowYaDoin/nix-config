@@ -1,5 +1,6 @@
 # Heavily inspired by:
-# https://github.com/nomadics9/nixcfg/blob/f2914acae6d88bf6569adc2d70d34aed11de0652/home/features/desktop/wayland.nix 
+# https://github.com/nomadics9/nixcfg/blob/f2914acae6d88bf6569adc2d70d34aed11de0652/home/features/desktop/wayland.nix
+
 { config, lib, pkgs, ...}:
 
 with lib; let
@@ -18,7 +19,7 @@ in
           layer = "top";
           modules-left = [ "custom/launcher" "cpu" "memory" "custom/weather" "hyprland/workspaces" ];
           modules-center = [ "mpris" ];
-          modules-right = [ "network" "pulseaudio" "backlight" "battery" "tray" "clock" ];
+          modules-right = [ "network" "pulseaudio" "clock" ];
 
           "hyprland/workspaces" = {
             format = "{name}";
@@ -142,7 +143,7 @@ in
             format = "{player_icon} {title}";
             format-paused = " {status_icon} <i>{title}</i>";
             max-length = 80;
-            interval = 2;
+            interval = 1;
             player-icons = {
               default = "▶";
               mpv = "🎵";
