@@ -14,12 +14,14 @@ in {
           force_zero_scaling = true;
         };
         
-        # Autostart
         exec-once = [
-          "waybar"
           "hyprpaper"
           "hypridle"
           "dbus-update-activation-environment --all"
+        ];
+        
+        exec = [
+          "killall waybar & waybar"
         ];
 
         # Programs
