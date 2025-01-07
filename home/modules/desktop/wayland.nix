@@ -16,7 +16,7 @@ in
         mainBar = {
           height = 15;
           layer = "top";
-          modules-left = [ "custom/launcher" "custom/wg" "cpu" "memory" "custom/weather" "hyprland/workspaces" ];
+          modules-left = [ "custom/launcher" "cpu" "memory" "custom/weather" "hyprland/workspaces" ];
           modules-center = [ "mpris" ];
           modules-right = [ "network" "pulseaudio" "backlight" "battery" "tray" "clock" ];
 
@@ -142,6 +142,7 @@ in
             format = "{player_icon} {title}";
             format-paused = " {status_icon} <i>{title}</i>";
             max-length = 80;
+            interval = 2;
             player-icons = {
               default = "▶";
               mpv = "🎵";
