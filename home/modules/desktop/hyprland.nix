@@ -71,24 +71,6 @@ in {
           "opacity 1 1,class:^(firefox)"
           "noborder,fullscreen:1"
         ];
-        # windowrulev2 = float,class:^(Lxappearance)$
-        # windowrulev2 = opacity 0.8 0.8,title:^(rofi)(.*)$
-        # windowrulev2 = opacity 0.8 0.8,class:^(kitty)$
-        # windowrulev2 = opacity 0.8 0.8,class:^(wofi)$
-        # windowrulev2 = opacity 0.8 0.8,class:^(thunar)$
-        # windowrulev2 = maximize,class:^(winbox.exe)$
-        # # windowrulev2 = maximize,class:^(chromium)$
-        # # windowrulev2 = noanim,class:^(kitty)$
-        # windowrulev2 = maximize,title:^(nvim)$
-        # windowrulev2 = float,class:^(org.telegram.desktop|vlc)$
-        # windowrulev2 = float,title:^(ranger)$
-        # windowrulev2 = size 60% 80%,class:^(org.telegram.desktop|vlc)$
-        # windowrulev2 = size 60% 80%,title:^(Open Files|ranger)$
-        # windowrulev2 = center,class:^(org.telegram.desktop|Open Files|ranger|vlc)$
-        # windowrulev2 = opacity 0.8 0.8,title:^(Open Files|ranger)$
-        # windowrulev2 = opacity 1 1,class:^(kitty)$,title:^(nvim)(.*)$ # disable opacity while opening neovim
-        # # windowrulev2 = bordercolor rgb(000000) rgb(000000),fullscreen:1
-        # windowrulev2 = noborder,fullscreen:1 # remove border on fullscreen
 
         ### KEYBINDS ############################################################
 
@@ -106,6 +88,15 @@ in {
           "$mainMod, right, movefocus, r"
           "$mainMod, up, movefocus, u"
           "$mainMod, down, movefocus, d"
+
+          # Navigation
+          "$mainMod, SPACE, togglefloating"
+
+          # Resize window
+          "$mainMod SHIFT, left, resizeactive, -40 0"
+          "$mainMod SHIFT, right, resizeactive, 40 0"
+          "$mainMod SHIFT, up, resizeactive, 0 -40"
+          "$mainMod SHIFT, down, resizeactive, 0 40"
 
           # Switch workspace
           "$mainMod, 1, workspace, 1"
@@ -129,9 +120,6 @@ in {
           "$mainMod, KP_Up, workspace, 8"
           "$mainMod, KP_Prior, workspace, 9"
           "$mainMod, KP_Insert, workspace, 10"
-
-          "$mainMod SHIFT, right, workspace, e+1"
-          "$mainMod SHIFT, left, workspace, e-1"
 
           "$mainMod, mouse_down, workspace, e+1"
           "$mainMod, mouse_up, workspace, e-1"
@@ -158,12 +146,24 @@ in {
           "$mainMod SHIFT, KP_Up, movetoworkspace, 8"
           "$mainMod SHIFT, KP_Prior, movetoworkspace, 9"
           "$mainMod SHIFT, KP_Insert, movetoworkspace, 10"
+
+          # Screen shot
+          "$mainMod, S, exec, hyprctl keyword animation 'fadeOut,0,0,default'; grimshot --notify copy active; hyprctl keyword animation 'fadeOut,1,4,default'"
+          "$mainMod SHIFT, S, exec, grimshot savecopy area - | swappy -f - -o ~/Photos/screenshot-$(date +'%d-%m-%Y_%H:%M').png"
+
+          # Screen recorder
+          "$mainMod SHIFT, R, exec, wf-recorder -a -f ~/Video/recording.mkv & notify-send 'Recording Started' -i -u -A '^C ,stop' -t 0 -i ~/icons/rec-button.png"
+
+          # Emoji selector
+          "$mainMod SHIFT, E, exec, rofimoji"
         ];
 
         bindm = [
           # Move window
           "$mainMod, mouse:272, movewindow"
-          "$mainMod, mouse:273, movewindow"
+
+          # Resize window
+          "$mainMod, mouse:273, resizewindow"
         ];
 
         bindel = [
