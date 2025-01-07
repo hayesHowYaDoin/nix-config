@@ -68,9 +68,10 @@ in {
 
         windowrulev2 = [
           "float,class:^(Lxappearance)$"
-          "opacity 0.85 0.85,class:^(kitty)$"
-          "opacity 0.95 0.95,class:^(code|Code)$"
-          "opacity 1 1,class:^(firefox)"
+          "opacity 0.85 0.85,class:^(kitty|Kitty)$"
+          "opacity 0.97 0.97,class:^(code|Code)$"
+          "opacity 0.97 0.97,class:^(firefox|Firefox)"
+          "opacity 0.97 0.97,class:^(spotify|Spotify)"
           "noborder,fullscreen:1"
         ];
 
