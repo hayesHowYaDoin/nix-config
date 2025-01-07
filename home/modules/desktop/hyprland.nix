@@ -15,13 +15,11 @@ in {
         };
         
         exec-once = [
+          "waybar"
           "hyprpaper"
           "hypridle"
+          "hyprlock"
           "dbus-update-activation-environment --all"
-        ];
-        
-        exec = [
-          "killall waybar & waybar"
         ];
 
         # Programs
@@ -70,7 +68,8 @@ in {
 
         windowrulev2 = [
           "float,class:^(Lxappearance)$"
-          "opacity 0.8 0.8,class:^(kitty)$"
+          "opacity 0.85 0.85,class:^(kitty)$"
+          "opacity 0.95 0.95,class:^(code|Code)$"
           "opacity 1 1,class:^(firefox)"
           "noborder,fullscreen:1"
         ];
@@ -224,7 +223,7 @@ in {
             inner_color = "rgba(0, 0, 0, 0.5)";
             font_color = "rgb(200, 200, 200)";
             fade_on_empty = true;
-            # placeholder_text = ''<i><span foreground="##cdd6f4">Input Password...</span></i>'';
+            placeholder_text = ''<i><span foreground="##cdd6f4">Input Password...</span></i>'';
             hide_input = false;
             position = "0, -120";
             halign = "center";
@@ -236,7 +235,7 @@ in {
             monitor = "";
             text = "$TIME";
             font_size = 120;
-            position = "0, 0";
+            position = "0, 80";
             valign = "center";
             halign = "center";
           }
@@ -266,10 +265,6 @@ in {
             timeout = 330;
             on-timeout = "hyprctl dispatch dpms off";
             on-resume = "hyprctl dispatch dpms on";
-          }
-          {
-            timeout = 1800;
-            on-timeout = "systemctl suspend";
           }
         ];
       };

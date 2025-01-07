@@ -17,9 +17,26 @@ in
         mainBar = {
           height = 52;
           layer = "top";
-          modules-left = [ "custom/launcher" "cpu" "memory" "custom/weather" "hyprland/workspaces" ];
-          modules-center = [ "mpris" ];
-          modules-right = [ "network" "pulseaudio" "clock" ];
+          modules-left = [ "custom/launcher" "clock" "custom/weather" "hyprland/workspaces" ];
+          # modules-center = [ "mpris" ]; # TODO: Fix hyprbar crashing/failing to launch due to mpris
+          modules-right = [ "network" "pulseaudio" "cpu" "memory" ];
+
+          "custom/launcher" = {
+            format = "󱄅";
+            on-click = "rofi -show drun";
+          };
+
+          "cpu" = {
+            interval = 10;
+            format = "CPU: {}%";
+            max-length = 10;
+          };
+
+          "memory" = {
+            interval = 10;
+            format = "RAM: {}%";
+            max-length = 10;
+          };
 
           "hyprland/workspaces" = {
             format = "{name}";
@@ -41,59 +58,13 @@ in
               "9" = [ ];
             };
           };
-
-          "tray" = {
-            spacing = 10;
-          };
-
-          "clock" = {
-            format = "{:%H:%M}";
-            format-alt = "{:%b %d %Y}";
-            tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          };
-
-          "cpu" = {
-            interval = 10;
-            format = "CPU: {}%";
-            max-length = 10;
-          };
-
-          "memory" = {
-            interval = 30;
-            format = "RAM: {}%";
-            format-alt = "RAM: {used:0.1f}GB";
-            max-length = 10;
-          };
-
-          "backlight" = {
-            device = "intel_backlight";
-            format = "{icon}";
+          
+          "custom/weather" = {
+            format = "{}°F";
             tooltip = true;
-            format-alt = "<small>{percent}%</small>";
-            format-icons = [ "󱩎" "󱩏" "󱩐" "󱩑" "󱩒" "󱩓" "󱩔" "󱩕" "󱩖" "󰛨" ];
-            on-scroll-up = "brightnessctl set 1%+";
-            on-scroll-down = "brightnessctl set 1%-";
-            smooth-scrolling-threshold = "2400";
-            tooltip-format = "Brightness {percent}%";
-          };
-
-          "network" = {
-            format-wifi = "<small>{bandwidthDownBytes}</small> {icon}";
-            min-length = 10;
-            fixed-width = 10;
-            format-ethernet = "󰈀";
-            format-disconnected = "󰤭";
-            tooltip-format = "{essid}";
-            interval = 1;
-            on-click = "~/.config/hypr/scripts/rofi-wifi.sh";
-            format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
-          };
-
-          "custom/wg" = {
-            exec = "~/.config/hypr/scripts/wg-status.sh";
-            interval = 5;
-            format = "{}";
-            on-click = "~/.config/hypr/scripts/wg-toggle.sh";
+            interval = 3600;
+            exec = "wttrbar --location 'Fort Collins' --fahrenheit";
+            return-type = "json";
           };
 
           "pulseaudio" = {
@@ -109,76 +80,34 @@ in
             tooltip-format = "Volume {volume}%";
           };
 
-          "battery" = {
-            bat = "BAT0";
-            adapter = "ADP0";
-            interval = 60;
-            states = {
-              warning = 15;
-              critical = 7;
-            };
-            max-length = 20;
-            format = "{icon}";
-            format-warning = "{icon}";
-            format-critical = "{icon}";
-            format-charging = "<span font-family='Font Awesome 6 Free'></span>";
-            format-plugged = "󰚥";
-            format-notcharging = "󰚥";
-            format-full = "󰂄";
-            format-alt = "<small>{capacity}%</small>";
-            format-alt-warning = "<small>{capacity}%</small>";
-            format-critical-alt = "<small>{capacity}%</small>";
-            format-icons = [ "󱊡" "󱊢" "󱊣" ];
-          };
-
-          "custom/weather" = {
-            format = "{}°F";
-            tooltip = true;
-            interval = 3600;
-            exec = "wttrbar --location 'Fort Collins' --fahrenheit";
-            return-type = "json";
-          };
-
-          "mpris" = {
-            format = "{player_icon} {title}";
-            format-paused = " {status_icon} <i>{title}</i>";
-            max-length = 80;
+          "network" = {
+            format-wifi = "{icon}";
+            format-ethernet = "󰈀";
+            format-disconnected = "󰤭";
+            tooltip-format = "{essid}\n⬆️: {bandwidthUpBytes}\n⬇️: {bandwidthDownBytes}";
             interval = 1;
-            player-icons = {
-              default = "▶";
-              mpv = "🎵";
-            };
-            status-icons = {
-              paused = "⏸";
-            };
+            format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
           };
 
-          "custom/refresh-rate" = {
-            format = "{percentage}Hz";
-            on-click = "~/.config/hypr/scripts/screenHz.sh";
-            return-type = "json";
-            exec = "cat ~/.config/hypr/scripts/hz.json";
-            interval = 1;
-            tooltip = false;
+          "clock" = {
+            format = "{:%H:%M}";
+            format-alt = "{:%b %d %Y}";
+            tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
           };
 
-          "idle_inhibitor" = {
-            format = "{icon}";
-            format-icons = {
-              activated = " ";
-              deactivated = " ";
-            };
-          };
-
-          "custom/launcher" = {
-            format = "󱄅";
-            on-click = "rofi -show drun";
-          };
-
-          "custom/wallpaper" = {
-            format = "󰸉 ";
-            on-click = "bash ~/.config/hypr/scripts/changewallpaper.sh";
-          };
+          # "mpris" = {
+          #   format = "{player_icon} {title}";
+          #   format-paused = " {status_icon} <i>{title}</i>";
+          #   max-length = 80;
+          #   interval = 1;
+          #   player-icons = {
+          #     default = "▶";
+          #     mpv = "🎵";
+          #   };
+          #   status-icons = {
+          #     paused = "⏸";
+          #   };
+          # };
         };
       };
 
@@ -209,8 +138,7 @@ in
         #tray,
         #workspaces,
         #custom-launcher,
-        #custom-weather,
-        #custom-wg {
+        #custom-weather {
           background-color: #222034;
           font-size: 14px;
           color: #8a909e;
@@ -219,7 +147,7 @@ in
           margin: 8px 2px;
         }
 
-        /* Styling for Network, Pulseaudio, Backlight, and Battery group */
+        /* Styling for Network and Pulseaudio group*/
         #network,
         #pulseaudio {
           background-color: #222034;
@@ -235,32 +163,14 @@ in
           padding-right: 14px
         }
 
-        /* Battery state-specific colors */
-        #battery.warning { color: #ecd3a0; }
-        #battery.critical:not(.charging) { color: #fb958b; }
-
         /* Pulseaudio mute state */
         #pulseaudio.muted { color: #fb958b; }
 
-        /* Styling for Language, Custom Wallpaper, Idle Inhibitor, Custom Refresh Rate group */
-        #language,
-        #custom-refresh-rate,
-        #custom-wallpaper,
-        #idle_inhibitor {
-          background-color: #222034;
-          color: #8a909e;
-          padding: 3px 4px;
-          margin: 8px 0px;
-        }
-
         /* Rounded corners for specific group elements */
-        #language { border-radius: 8px 0 0 8px; }
-        #custom-refresh-rate { border-radius: 0 8px 8px 0; }
         #network { border-radius: 8px 0 0 8px; }
         #pulseaudio { border-radius: 0 8px 8px 0; }
 
         /* Temperature, CPU, and Memory colors */
-        #temperature { color: #5796E0; }
         #cpu { color: #fb958b; }
         #memory { color: #a1c999; }
 
@@ -277,12 +187,6 @@ in
           font-weight: bold;
           border-radius: 8px;
           transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.68);
-        }
-
-        #idle_inhibitor.activated {
-          background-color: #ecf0f1;
-          color: #2d3436;
-          border-radius: 8px;
         }
 
         /* Custom launcher */
