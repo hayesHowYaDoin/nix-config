@@ -109,7 +109,6 @@ in {
           "$mainMod, 7, workspace, 7"
           "$mainMod, 8, workspace, 8"
           "$mainMod, 9, workspace, 9"
-          "$mainMod, 0, workspace, 10"
 
           "$mainMod, KP_End, workspace, 1"
           "$mainMod, KP_Down, workspace, 2"
@@ -120,7 +119,6 @@ in {
           "$mainMod, KP_Home, workspace, 7"
           "$mainMod, KP_Up, workspace, 8"
           "$mainMod, KP_Prior, workspace, 9"
-          "$mainMod, KP_Insert, workspace, 10"
 
           "$mainMod, mouse_down, workspace, e+1"
           "$mainMod, mouse_up, workspace, e-1"
@@ -135,7 +133,6 @@ in {
           "$mainMod SHIFT, 7, movetoworkspace, 7"
           "$mainMod SHIFT, 8, movetoworkspace, 8"
           "$mainMod SHIFT, 9, movetoworkspace, 9"
-          "$mainMod SHIFT, 0, movetoworkspace, 10"
 
           "$mainMod SHIFT, KP_End, movetoworkspace, 1"
           "$mainMod SHIFT, KP_Down, movetoworkspace, 2"
@@ -146,7 +143,6 @@ in {
           "$mainMod SHIFT, KP_Home, movetoworkspace, 7"
           "$mainMod SHIFT, KP_Up, movetoworkspace, 8"
           "$mainMod SHIFT, KP_Prior, movetoworkspace, 9"
-          "$mainMod SHIFT, KP_Insert, movetoworkspace, 10"
 
           # Screen shot
           "$mainMod, S, exec, hyprctl keyword animation 'fadeOut,0,0,default'; grimshot --notify copy active; hyprctl keyword animation 'fadeOut,1,4,default'"
