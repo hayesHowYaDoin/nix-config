@@ -1,8 +1,10 @@
+{ user, ...}:
+
 { 
   programs.git = {
     enable = true;
-    userName = "hayesHowYaDoin";
-    userEmail = "jordanhayes98@gmail.com";
+    userName = "${user.gitUser}";
+    userEmail = "${user.email}";
   };
 }
 

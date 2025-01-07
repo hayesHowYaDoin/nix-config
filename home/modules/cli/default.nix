@@ -2,9 +2,9 @@
 
 {
   imports = [
-    ./containers.nix
     ./git.nix
     ./neofetch.nix
+    ./zsh.nix
   ];
   
   home.packages = with pkgs; [

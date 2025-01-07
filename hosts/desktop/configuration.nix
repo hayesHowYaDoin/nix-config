@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, user, ... }:
 
 {
   imports =
@@ -82,15 +82,19 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.jordan = {
+  users.users.${user.name} = {
     isNormalUser = true;
-    description = "Jordan Hayes";
+    description = "${user.fullName}";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
+    shell = pkgs.zsh;
   };
+
+  # Enable zsh
+  programs.zsh.enable = true;
 
   # Enable automatic login for the user.
   services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "jordan";
+  services.displayManager.autoLogin.user = "${user.name}";
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
@@ -115,6 +119,7 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
+    docker
     vim
     git
     firefox
@@ -123,6 +128,7 @@
     kitty
     killall
     udiskie
+    zsh
   ];
 
   system.stateVersion = "24.11";

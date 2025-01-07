@@ -39,13 +39,14 @@
       home = "/home/jordan";
       fullName = "Jordan Hayes";
       email = "jordanhayes98@gmail.com";
+      gitUser = "hayesHowYaDoin";
     };
   in {
     # NixOS configuration entrypoints
     # Available through 'nixos-rebuild --flake .#hostname'
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs user; };
         modules = [
           ./hosts/desktop/configuration.nix
         ];

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, user, ...}:
 
 with lib; let
   cfg = config.features.desktop.hyprland;
