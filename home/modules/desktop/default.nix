@@ -18,6 +18,7 @@
     hypridle
     hyprpaper
     hyprpicker
+    hyprsunset
     rofi-wayland
     rofimoji
     qt6.qtwayland
@@ -54,7 +55,8 @@
     nautilus # Gnome file manager
     gnome-system-monitor
 
-    # Productivity
+    # Personal
     obsidian
+    spotify
   ];
 }
