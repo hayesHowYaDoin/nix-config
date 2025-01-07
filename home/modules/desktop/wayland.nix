@@ -15,7 +15,7 @@ in
       enable = true;
       settings = {
         mainBar = {
-          height = 15;
+          height = 52;
           layer = "top";
           modules-left = [ "custom/launcher" "cpu" "memory" "custom/weather" "hyprland/workspaces" ];
           modules-center = [ "mpris" ];
