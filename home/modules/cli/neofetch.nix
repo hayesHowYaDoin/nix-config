@@ -102,7 +102,7 @@ with lib; let
     thumbnail_dir="${config.xdg.cacheHome}/thumbnails/neofetch"
     crop_mode="normal"
     crop_offset="center"
-    image_size="500px"
+    image_size="300px"
     gap=2
     yoffset=1
     xoffset=0
