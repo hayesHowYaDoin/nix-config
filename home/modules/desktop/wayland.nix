@@ -1,8 +1,7 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+# Heavily inspired by:
+# https://github.com/nomadics9/nixcfg/blob/f2914acae6d88bf6569adc2d70d34aed11de0652/home/features/desktop/wayland.nix 
+{ config, lib, pkgs, ...}:
+
 with lib; let
   cfg = config.features.desktop.wayland;
 in
@@ -15,11 +14,11 @@ in
       enable = true;
       settings = {
         mainBar = {
-          height = 20;
+          height = 15;
           layer = "top";
           modules-left = [ "custom/launcher" "custom/wg" "cpu" "memory" "custom/weather" "hyprland/workspaces" ];
           modules-center = [ "mpris" ];
-          modules-right = [ "network" "pulseaudio" "backlight" "battery" "tray" "custom/wallpaper" "idle_inhibitor" "custom/refresh-rate" "clock" ];
+          modules-right = [ "network" "pulseaudio" "backlight" "battery" "tray" "clock" ];
 
           "hyprland/workspaces" = {
             format = "{name}";
@@ -220,9 +219,7 @@ in
 
         /* Styling for Network, Pulseaudio, Backlight, and Battery group */
         #network,
-        #pulseaudio,
-        #backlight,
-        #battery {
+        #pulseaudio {
           background-color: #222034;
           font-size: 20px;
           padding: 3px 8px;
@@ -230,11 +227,10 @@ in
         }
 
         /* Module-specific colors for Network, Pulseaudio, Backlight, Battery */
-        #network, #pulseaudio { color: #5796E0; }
-        #backlight { color: #ecd3a0; }
-        #battery { 
-        color: #8fbcbb;
-        padding-right: 14px
+        #network,
+        #pulseaudio {
+          color: #5796E0;
+          padding-right: 14px
         }
 
         /* Battery state-specific colors */
@@ -259,7 +255,7 @@ in
         #language { border-radius: 8px 0 0 8px; }
         #custom-refresh-rate { border-radius: 0 8px 8px 0; }
         #network { border-radius: 8px 0 0 8px; }
-        #battery { border-radius: 0 8px 8px 0; }
+        #pulseaudio { border-radius: 0 8px 8px 0; }
 
         /* Temperature, CPU, and Memory colors */
         #temperature { color: #5796E0; }
