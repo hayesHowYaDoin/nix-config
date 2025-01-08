@@ -97,10 +97,10 @@ in {
           "$mainMod, SPACE, togglefloating"
 
           # Resize window
-          "$mainMod SHIFT, left, resizeactive, -40 0"
-          "$mainMod SHIFT, right, resizeactive, 40 0"
-          "$mainMod SHIFT, up, resizeactive, 0 -40"
-          "$mainMod SHIFT, down, resizeactive, 0 40"
+          "$mainMod SHIFT, left, resizeactive, -150 0"
+          "$mainMod SHIFT, right, resizeactive, 150 0"
+          "$mainMod SHIFT, up, resizeactive, 0 -150"
+          "$mainMod SHIFT, down, resizeactive, 0 150"
 
           # Switch workspace
           "$mainMod, 1, workspace, 1"
