@@ -4,6 +4,7 @@
   imports =
     [
       ./hardware-configuration.nix
+      ../modules/controllers.nix
       ../modules/hyprland.nix
       ../modules/nvidia.nix
       ../modules/stylix.nix
