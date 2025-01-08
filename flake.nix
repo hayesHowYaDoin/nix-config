@@ -20,11 +20,6 @@
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    dotfiles = {
-      url = "github:jordanhayes98/dotfiles";
-      flakes = false;
-    };
   };
 
   outputs = {
