@@ -10,6 +10,7 @@
   home.packages = with pkgs; [
     coreutils
     fd
+    fzf
     htop
     ripgrep
     tldr
