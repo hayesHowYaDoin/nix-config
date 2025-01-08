@@ -19,5 +19,6 @@
     chafa
     nvtopPackages.full
     zoxide
+    oh-my-posh
   ];
 }

@@ -2,25 +2,13 @@
 
 with lib; let
   cfg = config.features.cli.zsh;
-  p10k_path = ../../assets/p10k.zsh;
+  omp_theme = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/pure.omp.json";
 in {
   options.features.cli.zsh.enable = mkEnableOption "enable extended zsh configuration";
 
   config = mkIf cfg.enable {
     programs.zsh = {
       enable = true;
-
-      initExtraFirst = ''
-        # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-        # Initialization code that may require console input (password prompts, [y/n]
-        # confirmations, etc.) must go above this block; everything else may go below.
-        if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-          source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-        fi
-
-        # Powerlevel10k theme
-        [[ ! -f ${p10k_path} ]] || source ${p10k_path}
-      '';
 
       initExtra = ''
         # Keybinds
@@ -39,6 +27,7 @@ in {
         # Shell integrations
         eval "$(fzf --zsh)"
         eval "$(zoxide init --cmd cd zsh)"
+        eval "$(oh-my-posh init zsh --config ${omp_theme})"
       '';
 
       history = {
@@ -55,10 +44,7 @@ in {
       zplug = {
         enable = true;
         plugins = [
-          {
-            name = "romkatv/powerlevel10k";
-            tags = [ "as:theme" "depth:1" ];
-          }
+          { name = "wintermi/zsh-oh-my-posh"; }
           { name = "zsh-users/zsh-syntax-highlighting"; }
           { name = "zsh-users/zsh-completions"; }
           { name = "zsh-users/zsh-autosuggestions"; }
