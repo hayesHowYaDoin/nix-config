@@ -53,7 +53,7 @@ in {
       };
 
       shellAliases = {
-        rebuild = "sudo nixos-rebuild switch --flake";
+        os = "sudo nixos-rebuild switch --flake";
         home = "home-manager switch --flake";
         ls = "ls --color";
         c = "clear";
