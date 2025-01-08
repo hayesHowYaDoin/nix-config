@@ -24,8 +24,6 @@ with lib; let
         info "\033[1;34m ├─" memory     # cl4 (blue)
         info "\033[1;34m ├─ \033[0m" disk  # cl4 (blue), cl0 (reset)
         info "\033[1;34m ╰─󰄉" uptime     # cl4 (blue)
-        prin " "
-        prin " \n \n \n \n \n \n \033[1;37m \n \n \033[1;31m󱄅 \n \n \033[1;32m  \n \n \033[1;33m󱄅  \n \n \033[1;34m  \n \n \033[1;35m󱄅  \n \n \033[1;36m  \n \n \033[0m󱄅  \n \n "
     }
 
 
