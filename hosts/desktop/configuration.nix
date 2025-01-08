@@ -6,6 +6,7 @@
       ./hardware-configuration.nix
       ../modules/hyprland.nix
       ../modules/nvidia.nix
+      ../modules/stylix.nix
       ../modules/virtualization.nix
     ];
 
@@ -125,7 +126,6 @@
     firefox
     sops
     ranger
-    kitty
     killall
     udiskie
     zsh

@@ -4,7 +4,7 @@ with lib; let
   cfg = config.features.cli.neofetch;
   neofetchConfig = /*bash*/ ''
     print_info() {
-        info "\033[1;32m ╭─󱄅 " distro   # cl2 (green)
+        info "\033[1;32m ╭─󱄅" distro   # cl2 (green)
         info "\033[1;32m ├─" kernel     # cl2 (green)
         info "\033[1;32m ├─" users      # cl2 (green)
         info "\033[1;32m ├─󰏗" packages   # cl2 (green)
@@ -39,11 +39,11 @@ with lib; let
     shell_version="on"
     speed_type="scaling_max_freq"
     speed_shorthand="on"
-    cpu_brand="on"
+    cpu_brand="off"
     cpu_speed="on"
     cpu_cores="logical"
     cpu_temp="on"
-    gpu_brand="on"
+    gpu_brand="off"
     gpu_type="all"
     refresh_rate="on"
     gtk_shorthand="off"

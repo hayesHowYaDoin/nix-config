@@ -15,15 +15,24 @@
       inputs.hyprland.follows = "hyprland";
     };
 
-    nix-colors.url = "github:misterio77/nix-colors";
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.home-manager.follows = "home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    dotfiles = {
+      url = "github:jordanhayes98/dotfiles";
+      flakes = false;
+    };
   };
 
   outputs = {
     self,
-    nixpkgs,
     home-manager,
-    nix-colors,
     hyprland,
+    nixpkgs,
+    stylix,
     ...
   }@inputs: 
   let
@@ -51,6 +60,7 @@
         specialArgs = { inherit inputs user; };
         modules = [
           ./hosts/desktop/configuration.nix
+          inputs.stylix.nixosModules.stylix
         ];
       };
     };
@@ -63,6 +73,7 @@
         extraSpecialArgs = { inherit inputs user pkgs; };
         modules = [
           ./home/home.nix
+          inputs.stylix.homeManagerModules.stylix
         ];
       };
     };

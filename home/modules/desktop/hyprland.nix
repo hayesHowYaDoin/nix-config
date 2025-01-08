@@ -38,8 +38,8 @@ in {
           gaps_in = 5;
           gaps_out = 0;
           border_size = 2;
-          "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-          "col.inactive_border" = "rgba(595959aa)";
+          # "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+          # "col.inactive_border" = "rgba(595959aa)";
 
           layout = "dwindle";
         };
@@ -55,7 +55,7 @@ in {
             enabled = true;
             range = 4;
             render_power = 3;
-            color = "rgba(ffffffff)";
+            # color = "rgba(ffffffff)";
           };
 
           blur = {
@@ -70,7 +70,7 @@ in {
           "float,class:^(Lxappearance)$"
           "opacity 0.85 0.85,class:^(kitty|Kitty)$"
           "opacity 0.97 0.97,class:^(code|Code)$"
-          "opacity 0.97 0.97,class:^(firefox|Firefox)"
+          "opacity 0.95 0.95,class:^(firefox|Firefox)"
           "opacity 0.97 0.97,class:^(spotify|Spotify)"
           "noborder,fullscreen:1"
         ];
@@ -190,8 +190,8 @@ in {
       enable = true;
       settings = {
         splash = false;
-        preload = "${wallpaper}";
-        wallpaper = ",${wallpaper}";
+        # preload = "${wallpaper}";
+        # wallpaper = ",${wallpaper}";
       };
     };
 
@@ -204,7 +204,7 @@ in {
           disable_loading_bar = true;
           grace = 0;
         };
-        background = [{
+        background = lib.mkForce [{
           monitor = "";
           path = "${wallpaper}";
           color = "rgba(25, 20, 20, 1.0)";
@@ -212,7 +212,7 @@ in {
           blur_size = 0;
           brightness = 0.2;
         }];
-        input-field = [
+        input-field = lib.mkForce [
           {
             monitor = "";
             size = "250, 60";

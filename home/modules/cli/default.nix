@@ -9,11 +9,12 @@
   
   home.packages = with pkgs; [
     coreutils
+    btop
     fd
     fzf
-    htop
     ripgrep
     tldr
+    tmux
     zip
     exiftool
     chafa
