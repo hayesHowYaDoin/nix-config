@@ -13,6 +13,7 @@
     exiftool
     fd
     fzf
+    neovim
     nvtopPackages.full
     oh-my-posh
     ripgrep

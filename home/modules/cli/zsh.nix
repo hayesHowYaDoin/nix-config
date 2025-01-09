@@ -57,6 +57,7 @@ in {
         home = "home-manager switch --flake";
         ls = "ls --color";
         c = "clear";
+        vim = "nvim";
       };
     };
   };
