@@ -8,18 +8,18 @@
   ];
   
   home.packages = with pkgs; [
+    chafa
     coreutils
-    btop
+    exiftool
     fd
     fzf
+    nvtopPackages.full
+    oh-my-posh
     ripgrep
     tldr
     tmux
+    usbutils
     zip
-    exiftool
-    chafa
-    nvtopPackages.full
     zoxide
-    oh-my-posh
   ];
 }
