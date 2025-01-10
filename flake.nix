@@ -9,9 +9,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "github:hyprwm/Hyprland/v0.46.2";
+
     hyprland-plugin = {
       url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+
+    hyprtasking = {
+      url = "github:raybbian/hyprtasking";
       inputs.hyprland.follows = "hyprland";
     };
 
@@ -26,6 +32,7 @@
     self,
     home-manager,
     hyprland,
+    hyprtasking,
     nixpkgs,
     stylix,
     ...

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, user, ...}:
+{ config, inputs, lib, pkgs, user, ...}:
 
 with lib; let
   cfg = config.features.desktop.hyprland;
@@ -9,6 +9,11 @@ in {
   config = mkIf cfg.enable {
     wayland.windowManager.hyprland = {
       enable = true;
+
+      plugins = [
+        inputs.hyprtasking.packages.${pkgs.system}.hyprtasking
+      ];
+
       settings = {
         xwayland = {
           force_zero_scaling = true;
@@ -75,6 +80,15 @@ in {
           "noborder,fullscreen:1"
         ];
 
+        ### HYPRTASKING #########################################################
+
+        plugin = {
+          hyprtasking = {
+            bg_color = "rgb(0, 0, 0)";
+            exit_behavior = "hovered";
+          };
+        };
+
         ### KEYBINDS ############################################################
 
         bind = [
@@ -82,25 +96,25 @@ in {
           "$mainMod, T, exec, $terminal"
           "$mainMod, Q, killactive"
           "$mainMod, F, exec, $fileManager"
-          "$mainMod, TAB, exec, $menu"
+          "$mainMod, M, exec, pkill rofi || rofi -show drun"
           "$mainMod, J, togglesplit"
           "$mainMod, B, exec, $browser"
           "$mainMod, L, exec, hyprlock"
 
           # Focus
-          "$mainMod, left, movefocus, l"
-          "$mainMod, right, movefocus, r"
-          "$mainMod, up, movefocus, u"
-          "$mainMod, down, movefocus, d"
+          "$mainMod SHIFT, left, movefocus, l"
+          "$mainMod SHIFT, right, movefocus, r"
+          "$mainMod SHIFT, up, movefocus, u"
+          "$mainMod SHIFT, down, movefocus, d"
 
           # Navigation
           "$mainMod, SPACE, togglefloating"
 
           # Resize window
-          "$mainMod SHIFT, left, resizeactive, -150 0"
-          "$mainMod SHIFT, right, resizeactive, 150 0"
-          "$mainMod SHIFT, up, resizeactive, 0 -150"
-          "$mainMod SHIFT, down, resizeactive, 0 150"
+          "$mainMod CTRL, left, resizeactive, -150 0"
+          "$mainMod CTRL, right, resizeactive, 150 0"
+          "$mainMod CTRL, up, resizeactive, 0 -150"
+          "$mainMod CTRL, down, resizeactive, 0 150"
 
           # Switch workspace
           "$mainMod, 1, workspace, 1"
@@ -156,6 +170,13 @@ in {
 
           # Emoji selector
           "$mainMod SHIFT, E, exec, rofimoji"
+
+          # Hyprtasking
+          "$mainMod, TAB, hyprtasking:toggle, all"
+          "$mainMod TAB, left, hyprtasking:move, left"
+          "$mainMod TAB, right, hyprtasking:move, right"
+          "$mainMod TAB, up, hyprtasking:move, up"
+          "$mainMod TAB, down, hyprtasking:move, down"
         ];
 
         bindm = [

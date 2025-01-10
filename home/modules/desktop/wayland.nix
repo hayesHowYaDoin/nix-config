@@ -17,9 +17,9 @@ in
         mainBar = {
           height = 52;
           layer = "top";
-          modules-left = [ "custom/launcher" "clock" "custom/weather" "hyprland/workspaces" ];
+          modules-left = [ "custom/launcher" "cpu" "memory" "hyprland/workspaces" ];
           # modules-center = [ "mpris" ]; # TODO: Fix hyprbar crashing/failing to launch due to mpris
-          modules-right = [ "network" "pulseaudio" "cpu" "memory" ];
+          modules-right = [ "network" "pulseaudio" "custom/weather" "clock" ];
 
           "custom/launcher" = {
             format = "󱄅";
@@ -68,8 +68,8 @@ in
           };
 
           "pulseaudio" = {
-            format = "{icon}";
-            format-muted = "󰖁";
+            format = "<big>{icon}</big> {volume}%";
+            format-muted = "<big>󰖁</big> {volume}%";
             format-icons = {
               default = [ "" "" "󰕾" ];
             };
@@ -77,11 +77,11 @@ in
             on-scroll-up = "pamixer -i 1";
             on-scroll-down = "pamixer -d 1";
             on-click-right = "exec pavucontrol";
-            tooltip-format = "Volume {volume}%";
+            # tooltip-format = "Volume {volume}%";
           };
 
           "network" = {
-            format-wifi = "{icon}";
+            format-wifi = "<big>{icon}</big>";
             format-ethernet = "󰈀";
             format-disconnected = "󰤭";
             tooltip-format = "{essid}\n⬆️: {bandwidthUpBytes}\n⬇️: {bandwidthDownBytes}";
@@ -151,7 +151,8 @@ in
         #network,
         #pulseaudio {
           background-color: #222034;
-          font-size: 20px;
+          font-size: 14px;
+          color: #8a909e;
           padding: 3px 8px;
           margin: 8px 0px;
         }
