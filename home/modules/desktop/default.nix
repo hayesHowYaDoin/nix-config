@@ -5,6 +5,7 @@
     ./fonts.nix
     ./hyprland.nix
     ./kitty.nix
+    ./slippi.nix
     ./vscode.nix
     ./wayland.nix
     ./xdg.nix

@@ -21,6 +21,8 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    slippi.url = "github:lytedev/slippi-nix";
+
     stylix = {
       url = "github:danth/stylix";
       inputs.home-manager.follows = "home-manager";
@@ -34,6 +36,7 @@
     hyprland,
     hyprtasking,
     nixpkgs,
+    slippi,
     stylix,
     ...
   }@inputs: 
@@ -62,7 +65,8 @@
         specialArgs = { inherit inputs user; };
         modules = [
           ./hosts/desktop/configuration.nix
-          inputs.stylix.nixosModules.stylix
+          stylix.nixosModules.stylix
+          slippi.nixosModules.default
         ];
       };
     };
@@ -75,7 +79,8 @@
         extraSpecialArgs = { inherit inputs user pkgs; };
         modules = [
           ./home/home.nix
-          inputs.stylix.homeManagerModules.stylix
+          stylix.homeManagerModules.stylix
+          slippi.homeManagerModules.default
         ];
       };
     };
