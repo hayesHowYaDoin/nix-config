@@ -69,6 +69,15 @@
           slippi.nixosModules.default
         ];
       };
+
+      laptop = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs user; };
+        modules = [
+          ./hosts/laptop/configuration.nix
+          stylix.nixosModules.stylix
+          slippi.nixosModules.stylix
+        ];
+      };
     };
 
     # Standalone home-manager configuration entrypoint
@@ -78,7 +87,17 @@
         inherit pkgs;
         extraSpecialArgs = { inherit inputs user pkgs; };
         modules = [
-          ./home/home.nix
+          ./home/desktop/home.nix
+          stylix.homeManagerModules.stylix
+          slippi.homeManagerModules.default
+        ];
+      };
+
+      "${user.name}@laptop" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = { inherit inputs user pkgs; };
+        modules = [
+          ./home/laptop/home.nix
           stylix.homeManagerModules.stylix
           slippi.homeManagerModules.default
         ];

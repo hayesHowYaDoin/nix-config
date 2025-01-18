@@ -2,14 +2,14 @@
 
 {
   imports = [
-    ./modules/cli
-    ./modules/desktop
+    ../modules/cli
+    ../modules/desktop
   ];
 
   stylix = {
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-    image = ./assets/wallpaper.jpeg;
+    image = ./../assets/wallpaper.jpeg;
   };
 
   # Enable if not using NixOS
