@@ -1,13 +1,17 @@
 # Heavily inspired by:
 # https://github.com/nomadics9/nixcfg/blob/f2914acae6d88bf6569adc2d70d34aed11de0652/home/features/desktop/wayland.nix
 
-{ config, lib, pkgs, ...}:
+{ height }: { config, lib, pkgs, ...}:
 
 with lib; let
   cfg = config.features.desktop.wayland;
+
+  medium_font = builtins.toString(builtins.floor(height / 2.5));
+  large_font = builtins.toString(builtins.floor(height / 2.0));
+  vertical_pad = builtins.toString(builtins.floor(height / 12.0));
 in
 {
-  options.features.desktop.wayland.enable = mkEnableOption "wayland extra tools and config";
+  options.features.desktop.wayland.enable = mkEnableOption "Wayland tools and config";
 
   config = mkIf cfg.enable {
 
@@ -15,11 +19,11 @@ in
       enable = true;
       settings = {
         mainBar = {
-          height = 52;
+          height = height;
           layer = "top";
           modules-left = [ "custom/launcher" "cpu" "memory" "hyprland/workspaces" ];
-          # modules-center = [ "mpris" ]; # TODO: Fix hyprbar crashing/failing to launch due to mpris
-          modules-right = [ "network" "pulseaudio" "custom/weather" "clock" ];
+          modules-center = [ "mpris" ];
+          modules-right = [ "pulseaudio" "network" "battery" "custom/weather" "clock" ];
 
           "custom/launcher" = {
             format = "󱄅";
@@ -77,11 +81,11 @@ in
             on-scroll-up = "pamixer -i 1";
             on-scroll-down = "pamixer -d 1";
             on-click-right = "exec pavucontrol";
-            # tooltip-format = "Volume {volume}%";
+            tooltip-format = "Volume {volume}%";
           };
 
           "network" = {
-            format-wifi = "<big>{icon}</big>";
+            format-wifi = "<big>{icon}</big> ";
             format-ethernet = "󰈀";
             format-disconnected = "󰤭";
             tooltip-format = "{essid}\n⬆️: {bandwidthUpBytes}\n⬇️: {bandwidthDownBytes}";
@@ -95,19 +99,41 @@ in
             tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
           };
 
-          # "mpris" = {
-          #   format = "{player_icon} {title}";
-          #   format-paused = " {status_icon} <i>{title}</i>";
-          #   max-length = 80;
-          #   interval = 1;
-          #   player-icons = {
-          #     default = "▶";
-          #     mpv = "🎵";
-          #   };
-          #   status-icons = {
-          #     paused = "⏸";
-          #   };
-          # };
+          "mpris" = {
+            format = "{player_icon} {title}";
+            format-paused = " {status_icon} <i>{title}</i>";
+            max-length = 80;
+            interval = 1;
+            player-icons = {
+              default = "▶";
+              mpv = "🎵";
+            };
+            status-icons = {
+              paused = "⏸";
+            };
+          };
+
+          "battery" = {
+            bat = "BAT1";
+            adapter = "ADP1";
+            interval = 60;
+            states = {
+              warning = 15;
+              critical = 7;
+            };
+            max-length = 20;
+            format = "{icon}";
+            format-warning = "{icon}";
+            format-critical = "{icon}";
+            format-charging = "<span font-family='Font Awesome 6 Free'></span>";
+            format-plugged = "󰚥";
+            format-notcharging = "󰚥";
+            format-full = "󰂄";
+            format-alt = "<small>{capacity}%</small>";
+            format-alt-warning = "<small>{capacity}%</small>";
+            format-critical-alt = "<small>{capacity}%</small>";
+            format-icons = [ "󱊡" "󱊢" "󱊣" ];
+          };
         };
       };
 
@@ -116,7 +142,7 @@ in
   
         * {
           font-family: JetBrains Mono, JetBrainsMono Nerd Font, Material Design Icons;
-          font-size: 17px; 
+          font-size: ${medium_font}px; 
           border: none;
           border-radius: 0;
           min-height: 0;
@@ -138,38 +164,31 @@ in
         #tray,
         #workspaces,
         #custom-launcher,
+        #network,
+        #pulseaudio,
+        #battery,
         #custom-weather {
           background-color: #222034;
-          font-size: 14px;
+          font-size: ${medium_font}px;
           color: #8a909e;
-          padding: 3px 8px;
+          padding: ${vertical_pad}px 8px;
           border-radius: 8px;
-          margin: 8px 2px;
-        }
-
-        /* Styling for Network and Pulseaudio group*/
-        #network,
-        #pulseaudio {
-          background-color: #222034;
-          font-size: 14px;
-          color: #8a909e;
-          padding: 3px 8px;
-          margin: 8px 0px;
+          margin: 3px 2px;
         }
 
         /* Module-specific colors for Network, Pulseaudio, Backlight, Battery */
         #network,
-        #pulseaudio {
+        #pulseaudio,
+        #battery {
           color: #5796E0;
-          padding-right: 14px
         }
+
+        /* Battery state-specific colors */
+        #battery.warning { color: #ecd3a0; }
+        #battery.critical:not(.charging) { color: #fb958b; }
 
         /* Pulseaudio mute state */
         #pulseaudio.muted { color: #fb958b; }
-
-        /* Rounded corners for specific group elements */
-        #network { border-radius: 8px 0 0 8px; }
-        #pulseaudio { border-radius: 0 8px 8px 0; }
 
         /* Temperature, CPU, and Memory colors */
         #cpu { color: #fb958b; }
@@ -180,7 +199,7 @@ in
           color: #5796E0;
           border-radius: 8px;
           box-shadow: inset 0 -3px transparent;
-          padding: 3px 4px;
+          padding: ${vertical_pad}px 4px;
           transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.68);
         }
         #workspaces button.active {
@@ -193,7 +212,7 @@ in
         /* Custom launcher */
         #custom-launcher {
           color: #5796E0;
-          font-size: 22px;
+          font-size: ${large_font}px;
           padding-right: 14px;
         }
 
@@ -205,9 +224,8 @@ in
         }
         tooltip label {
           padding: 5px;
-          font-size: 14px;
-          }
-
+          font-size: ${medium_font}px;
+        }
   '';
     };
   };

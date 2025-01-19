@@ -75,7 +75,7 @@
         modules = [
           ./hosts/laptop/configuration.nix
           stylix.nixosModules.stylix
-          slippi.nixosModules.stylix
+          slippi.nixosModules.default
         ];
       };
     };
@@ -87,7 +87,7 @@
         inherit pkgs;
         extraSpecialArgs = { inherit inputs user pkgs; };
         modules = [
-          ./home/desktop/home.nix
+          ./home/desktop.nix
           stylix.homeManagerModules.stylix
           slippi.homeManagerModules.default
         ];
@@ -97,7 +97,7 @@
         inherit pkgs;
         extraSpecialArgs = { inherit inputs user pkgs; };
         modules = [
-          ./home/laptop/home.nix
+          ./home/laptop.nix
           stylix.homeManagerModules.stylix
           slippi.homeManagerModules.default
         ];

@@ -6,8 +6,11 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
+      ../modules/hyprland.nix
+      ../modules/stylix.nix
+      ../modules/virtualization.nix
     ];
 
   # Bootloader.
@@ -48,8 +51,8 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  # services.xserver.displayManager.gdm.enable = true;
+  # services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -61,6 +64,11 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
+  hardware.enableAllFirmware = true;
+  boot.extraModprobeConfig = ''
+    options snd-intel-dspcfg dsp_driver=1
+  '';
+
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -78,12 +86,13 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
+  # services.libinput.touchpad.naturalScrolling = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${user.name} = {
     isNormalUser = true;
     description = "${user.fullName}";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "audio" "networkmanager" "wheel" "docker" ];
     shell = pkgs.zsh;
   };
 
@@ -99,9 +108,13 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    alsa-utils
+    docker
     vim
     wget
     git
+    sof-firmware
+    udiskie
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

@@ -2,14 +2,14 @@
 
 {
   imports = [
-    ../modules/cli
-    ../modules/desktop
-  ];
+    ./modules/cli
+    ./modules/desktop
+];
 
   stylix = {
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-    image = ./../assets/wallpaper.jpeg;
+    image = ./assets/wallpaper.jpeg;
   };
 
   # Enable if not using NixOS
@@ -23,12 +23,16 @@
     desktop = {
       fonts.enable = true;
       hyprland.enable = true;
-      slippi.enable = true;
       vscode.enable = true;
       wayland.enable = true;
       xdg.enable = true;
+      slippi.enable = false;
     };
   };
+
+  home.packages = with pkgs; [
+    acpi
+  ];
 
   home = {
     username = user.name;
