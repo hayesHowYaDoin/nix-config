@@ -25,7 +25,10 @@
       hyprland.enable = true;
       slippi.enable = true;
       vscode.enable = true;
-      wayland.enable = true;
+      wayland = {
+        enable = true;
+        height = 35;
+      };
       xdg.enable = true;
     };
   };

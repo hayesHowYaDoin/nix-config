@@ -23,10 +23,13 @@
     desktop = {
       fonts.enable = true;
       hyprland.enable = true;
-      vscode.enable = true;
-      wayland.enable = true;
-      xdg.enable = true;
       slippi.enable = false;
+      vscode.enable = true;
+      wayland = {
+        enable = true;
+        height = 30;
+      };
+      xdg.enable = true;
     };
   };
 

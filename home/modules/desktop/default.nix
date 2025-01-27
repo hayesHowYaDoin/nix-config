@@ -7,7 +7,7 @@
     ./kitty.nix
     ./slippi.nix
     ./vscode.nix
-    (import ./wayland.nix { height = 30; })
+    ./wayland.nix
     ./xdg.nix
   ];
 

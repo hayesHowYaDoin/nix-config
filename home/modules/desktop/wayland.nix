@@ -1,25 +1,29 @@
 # Heavily inspired by:
 # https://github.com/nomadics9/nixcfg/blob/f2914acae6d88bf6569adc2d70d34aed11de0652/home/features/desktop/wayland.nix
 
-{ height }: { config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 
 with lib; let
   cfg = config.features.desktop.wayland;
 
-  medium_font = builtins.toString(builtins.floor(height / 2.5));
-  large_font = builtins.toString(builtins.floor(height / 2.0));
-  vertical_pad = builtins.toString(builtins.floor(height / 12.0));
+  medium_font = builtins.toString(builtins.floor(cfg.height / 2.5));
+  large_font = builtins.toString(builtins.floor(cfg.height / 2.0));
+  vertical_pad = builtins.toString(builtins.floor(cfg.height / 12.0));
 in
 {
   options.features.desktop.wayland.enable = mkEnableOption "Wayland tools and config";
+  options.features.desktop.wayland.height = mkOption {
+    type = types.int;
+    example = 30;
+    description = "Height of the Waybar in pixels";
+  };
 
   config = mkIf cfg.enable {
-
     programs.waybar = {
       enable = true;
       settings = {
         mainBar = {
-          height = height;
+          height = cfg.height;
           layer = "top";
           modules-left = [ "custom/launcher" "cpu" "memory" "hyprland/workspaces" ];
           modules-center = [ "mpris" ];
