@@ -7,6 +7,7 @@
       ../modules/controllers.nix
       ../modules/hyprland.nix
       ../modules/nvidia.nix
+      ../modules/ssh.nix
       ../modules/stylix.nix
       ../modules/virtualization.nix
     ];
