@@ -206,7 +206,8 @@ in {
         ];
 
         ### INPUT #############################################################
-        input.natural_scroll = true;
+        
+        input.natural_scroll = false;
       };
     };
 

@@ -61,10 +61,10 @@
     # NixOS configuration entrypoints
     # Available through 'nixos-rebuild --flake .#hostname'
     nixosConfigurations = {
-      desktop = nixpkgs.lib.nixosSystem {
+      battlestation = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs user; };
         modules = [
-          ./hosts/desktop/configuration.nix
+          ./hosts/battlestation/configuration.nix
           stylix.nixosModules.stylix
           slippi.nixosModules.default
         ];
@@ -83,11 +83,11 @@
     # Standalone home-manager configuration entrypoint
     # Available through 'home-manager --flake .#username@hostname'
     homeConfigurations = {
-      "${user.name}@desktop" = home-manager.lib.homeManagerConfiguration {
+      "${user.name}@battlestation" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = { inherit inputs user pkgs; };
         modules = [
-          ./home/desktop.nix
+          ./home/battlestation.nix
           stylix.homeManagerModules.stylix
           slippi.homeManagerModules.default
         ];
