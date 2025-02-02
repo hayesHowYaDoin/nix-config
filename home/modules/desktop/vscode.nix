@@ -12,8 +12,10 @@ in
       package = pkgs.vscode;
       extensions = [
         pkgs.vscode-extensions.bbenoist.nix
+        pkgs.vscode-extensions.mkhl.direnv
         pkgs.vscode-extensions.github.copilot
         pkgs.vscode-extensions.github.copilot-chat
+        pkgs.vscode-extensions.jnoortheen.nix-ide
         pkgs.vscode-extensions.kamikillerto.vscode-colorize
         pkgs.vscode-extensions.ms-azuretools.vscode-docker
         pkgs.vscode-extensions.ms-vscode-remote.remote-containers

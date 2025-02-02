@@ -39,12 +39,12 @@
     playerctl
     brightnessctl
     pamixer
-    pavucontrol # Volume control
-    jellyfin-ffmpeg # Multimedia libs
-    viewnior # Image viewr
-    mako # Notifications
-    libcanberra-gtk3 # Notification sound
-    libnotify # notify-send
+    pavucontrol           # Volume control
+    jellyfin-ffmpeg       # Multimedia libs
+    viewnior              # Image viewr
+    mako                  # Notifications
+    libcanberra-gtk3      # Notification sound
+    libnotify             # notify-send
 
     # Gnome utilities
     gtk-engine-murrine
@@ -53,7 +53,7 @@
     gnome-text-editor
     file-roller
     gnome-calculator
-    nautilus # Gnome file manager
+    nautilus              # File manager
     gnome-system-monitor
 
     # Personal

@@ -17,7 +17,7 @@
 
   features = {
     cli = {
-      neofetch.enable = true;
+      neofetch.enable = false;
       zsh.enable = true;
     };
     desktop = {

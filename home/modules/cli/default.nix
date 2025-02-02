@@ -10,10 +10,12 @@
   home.packages = with pkgs; [
     chafa
     coreutils
-    exiftool
+    direnv
+    devenv
     fd
     fzf
     neovim
+    nitch
     nvtopPackages.full
     oh-my-posh
     ripgrep
