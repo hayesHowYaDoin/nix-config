@@ -17,6 +17,7 @@
 
   features = {
     cli = {
+      helix.enable = true;
       neofetch.enable = false;
       zsh.enable = true;
     };

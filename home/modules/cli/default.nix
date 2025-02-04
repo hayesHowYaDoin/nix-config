@@ -3,6 +3,7 @@
 {
   imports = [
     ./git.nix
+    ./helix.nix
     ./neofetch.nix
     ./zsh.nix
   ];
