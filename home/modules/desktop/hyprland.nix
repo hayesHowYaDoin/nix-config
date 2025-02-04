@@ -102,10 +102,10 @@ in {
           "$mainMod, L, exec, hyprlock"
 
           # Focus
-          "$mainMod SHIFT, left, movefocus, l"
-          "$mainMod SHIFT, right, movefocus, r"
-          "$mainMod SHIFT, up, movefocus, u"
-          "$mainMod SHIFT, down, movefocus, d"
+          "$mainMod, left, movefocus, l"
+          "$mainMod, right, movefocus, r"
+          "$mainMod, up, movefocus, u"
+          "$mainMod, down, movefocus, d"
 
           # Navigation
           "$mainMod, SPACE, togglefloating"
@@ -173,10 +173,10 @@ in {
 
           # Hyprtasking
           "$mainMod, TAB, hyprtasking:toggle, all"
-          "$mainMod TAB, left, hyprtasking:move, left"
-          "$mainMod TAB, right, hyprtasking:move, right"
-          "$mainMod TAB, up, hyprtasking:move, up"
-          "$mainMod TAB, down, hyprtasking:move, down"
+          "$mainMod SHIFT, left, hyprtasking:move, left"
+          "$mainMod SHIFT, right, hyprtasking:move, right"
+          "$mainMod SHIFT, up, hyprtasking:move, up"
+          "$mainMod SHIFT, down, hyprtasking:move, down"
         ];
 
         bindm = [
