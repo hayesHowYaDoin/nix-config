@@ -10,15 +10,15 @@ in
     programs.vscode = {
       enable = true;
       package = pkgs.vscode;
-      extensions = [
-        pkgs.vscode-extensions.bbenoist.nix
-        pkgs.vscode-extensions.mkhl.direnv
-        pkgs.vscode-extensions.github.copilot
-        pkgs.vscode-extensions.github.copilot-chat
-        pkgs.vscode-extensions.jnoortheen.nix-ide
-        pkgs.vscode-extensions.kamikillerto.vscode-colorize
-        pkgs.vscode-extensions.ms-azuretools.vscode-docker
-        pkgs.vscode-extensions.ms-vscode-remote.remote-containers
+      extensions = with pkgs.vscode-extensions; [
+        bbenoist.nix
+        mkhl.direnv
+        github.copilot
+        github.copilot-chat
+        jnoortheen.nix-ide
+        kamikillerto.vscode-colorize
+        ms-azuretools.vscode-docker
+        ms-vscode-remote.remote-containers
       ];
       userSettings = {
         "editor.fontLigatures" = false;
