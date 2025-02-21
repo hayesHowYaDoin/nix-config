@@ -89,6 +89,14 @@ in {
           };
         };
 
+        device = [
+          {
+            name = "wacom-one-pen-display-13-pen"; 
+            transform = 0;
+            output = "HDMI-A-1";
+          }
+        ];
+
         ### KEYBINDS ############################################################
 
         bind = [
