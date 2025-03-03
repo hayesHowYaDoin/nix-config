@@ -8,21 +8,20 @@
   imports =
     [
       ./hardware-configuration.nix
-      ../modules/hyprland.nix
       ../modules/stylix.nix
       ../modules/virtualization.nix
     ];
 
-# Bootloader.
+  # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "laptop"; # Define your hostname.
+  networking.hostName = "newtop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.extraOptions = ''
-      trusted-users = root jordan
+    trusted-users = root jordan
   '';
 
   # Configure network proxy if necessary
@@ -51,11 +50,12 @@
   };
 
   # Enable the X11 windowing system.
+  # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
-  # services.xserver.displayManager.gdm.enable = true;
-  # services.xserver.desktopManager.gnome.enable = true;
+  # Enable the KDE Plasma Desktop Environment.
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -67,11 +67,6 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.enableAllFirmware = true;
-  boot.extraModprobeConfig = ''
-    options snd-intel-dspcfg dsp_driver=1
-  '';
-
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -88,14 +83,13 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
-  services.libinput.touchpad.naturalScrolling = true;
+  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${user.name} = {
     isNormalUser = true;
     description = "${user.fullName}";
-    extraGroups = [ "audio" "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     shell = pkgs.zsh;
   };
 
@@ -111,13 +105,10 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    alsa-utils
     docker
     vim
     wget
     git
-    sof-firmware
-    udiskie
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

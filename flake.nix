@@ -78,6 +78,15 @@
           slippi.nixosModules.default
         ];
       };
+
+      newtop = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs user; };
+        modules = [
+          ./hosts/newtop/configuration.nix
+          stylix.nixosModules.stylix
+          slippi.nixosModules.default
+        ];
+      };
     };
 
     # Standalone home-manager configuration entrypoint
@@ -98,6 +107,16 @@
         extraSpecialArgs = { inherit inputs user pkgs; };
         modules = [
           ./home/laptop.nix
+          stylix.homeManagerModules.stylix
+          slippi.homeManagerModules.default
+        ];
+      };
+
+      "${user.name}@newtop" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = { inherit inputs user pkgs; };
+        modules = [
+          ./home/newtop.nix
           stylix.homeManagerModules.stylix
           slippi.homeManagerModules.default
         ];
