@@ -24,6 +24,7 @@
     desktop = {
       fonts.enable = true;
       hyprland.enable = true;
+      kitty.enable = true;
       slippi.enable = true;
       vscode.enable = true;
       wayland = {

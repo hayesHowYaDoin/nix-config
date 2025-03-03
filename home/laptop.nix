@@ -23,6 +23,7 @@
     desktop = {
       fonts.enable = true;
       hyprland.enable = true;
+      kitty.enable = true;
       slippi.enable = false;
       vscode.enable = true;
       wayland = {
