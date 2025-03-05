@@ -15,5 +15,8 @@
   home.packages = with pkgs; [
     obsidian
     spotify
+    godot_4
+    discord
+    obs-studio
   ];
 }

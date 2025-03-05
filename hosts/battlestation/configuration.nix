@@ -1,16 +1,15 @@
 { config, pkgs, inputs, user, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ../modules/controllers.nix
-      ../modules/hyprland.nix
-      ../modules/nvidia.nix
-      ../modules/ssh.nix
-      ../modules/stylix.nix
-      ../modules/virtualization.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    ../modules/controllers.nix
+    ../modules/hyprland.nix
+    ../modules/nvidia.nix
+    ../modules/ssh.nix
+    ../modules/stylix.nix
+    ../modules/virtualization.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -22,7 +21,7 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.extraOptions = ''
-      trusted-users = root jordan
+    trusted-users = root jordan
   '';
 
   # Configure network proxy if necessary
@@ -108,6 +107,8 @@
   systemd.services."autovt@tty1".enable = false;
 
   # Query and manipulate storage devices.
+  services.devmon.enable = true;
+  services.gvfs.enable = true;
   services.udisks2.enable = true;
 
   # Install firefox.
@@ -117,9 +118,12 @@
   # Note: Cannot be configured on a per-user basis with home-manager.
   programs.steam = {
     enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+    remotePlay.openFirewall =
+      true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall =
+      true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall =
+      true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
 
   # Allow unfree packages.
