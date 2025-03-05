@@ -103,7 +103,8 @@ in {
           # General
           "$mainMod, T, exec, $terminal"
           "$mainMod, Q, killactive"
-          "$mainMod, F, exec, $fileManager"
+          "$mainMod, E, exec, $fileManager"
+          "$mainMod, F, fullscreen"
           "$mainMod, M, exec, pkill rofi || rofi -show drun"
           "$mainMod, J, togglesplit"
           "$mainMod, B, exec, $browser"
