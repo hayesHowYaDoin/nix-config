@@ -28,6 +28,12 @@
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.home-manager.follows = "home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -36,6 +42,7 @@
     hyprland,
     hyprtasking,
     nixpkgs,
+    plasma-manager,
     slippi,
     stylix,
     ...
@@ -89,7 +96,7 @@
       };
     };
 
-    # Standalone home-manager configuration entrypoint
+    # Standalone home-manager configuration entrypoints
     # Available through 'home-manager --flake .#username@hostname'
     homeConfigurations = {
       "${user.name}@battlestation" = home-manager.lib.homeManagerConfiguration {
@@ -119,6 +126,7 @@
           ./home/newtop.nix
           stylix.homeManagerModules.stylix
           slippi.homeManagerModules.default
+          plasma-manager.homeManagerModules.plasma-manager
         ];
       };
     };

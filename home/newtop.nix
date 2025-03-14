@@ -21,12 +21,10 @@
       zsh.enable = true;
     };
     desktop = {
-      ghostty.enable = true;
       fonts.enable = true;
-      hyprland.enable = false;
-      slippi.enable = false;
+      ghostty.enable = true;
+      plasma.enable = true;
       vscode.enable = true;
-      wayland.enable = false;
       xdg.enable = true;
     };
   };
@@ -37,9 +35,9 @@
     stateVersion = "24.11"; # Please read the comment before changing.
   };
 
-  # Stylix can't replace this file and doing so has no obvious concequence
+  # Stylix can't replace this file and deleting it has no obvious concequence
   home.activation.removeBackups = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
-    rm -f ${config.home.homeDirectory}/.gtkrc-2.0.backup
+    rm -f ${config.home.homeDirectory}/.gtkrc-2.0
   '';
 
   programs.home-manager.enable = true;
