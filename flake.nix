@@ -110,6 +110,7 @@
           ./home/battlestation.nix
           stylix.homeManagerModules.stylix
           slippi.homeManagerModules.default
+          plasma-manager.homeManagerModules.plasma-manager
         ];
       };
 
