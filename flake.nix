@@ -34,6 +34,8 @@
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    musnix.url = "github:musnix/musnix";
   };
 
   outputs = {
@@ -41,6 +43,7 @@
     home-manager,
     hyprland,
     hyprtasking,
+    musnix,
     nixpkgs,
     plasma-manager,
     slippi,
@@ -90,6 +93,7 @@
         specialArgs = { inherit inputs user; };
         modules = [
           ./hosts/newtop/configuration.nix
+          musnix.nixosModules.musnix
           stylix.nixosModules.stylix
           slippi.nixosModules.default
         ];
