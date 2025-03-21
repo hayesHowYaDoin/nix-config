@@ -7,6 +7,7 @@
     ../modules/nvidia.nix
     ../modules/ssh.nix
     ../modules/stylix.nix
+    ../modules/tailscale.nix
     ../modules/virtualization.nix
   ];
 

@@ -12,12 +12,4 @@
     ./wayland.nix
     ./xdg.nix
   ];
-
-  home.packages = with pkgs; [
-    obsidian
-    spotify
-    godot_4
-    discord
-    obs-studio
-  ];
 }

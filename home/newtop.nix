@@ -33,6 +33,13 @@
     username = user.name;
     homeDirectory = user.home;
     stateVersion = "24.11"; # Please read the comment before changing.
+    packages = with pkgs; [
+      obsidian
+      spotify
+      godot_4
+      discord
+      obs-studio
+    ];
   };
 
   # Stylix can't replace this file and deleting it has no obvious concequence

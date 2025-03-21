@@ -9,6 +9,7 @@
     [
       ./hardware-configuration.nix
       ../modules/stylix.nix
+      ../modules/tailscale.nix
       ../modules/virtualization.nix
     ];
 
@@ -23,6 +24,13 @@
   nix.extraOptions = ''
     trusted-users = root jordan
   '';
+
+  # Enable the KDE Plasma Desktop Environment.
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
+
+  # Enable Tailscale VPN
+  services.tailscale.enable = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -52,10 +60,6 @@
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
