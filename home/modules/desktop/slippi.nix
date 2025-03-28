@@ -10,7 +10,7 @@ in
     slippi-launcher = {
       enable = true;
       launchMeleeOnPlay = false;
-      isoPath = "/mnt/Games/Roms/GCN/game.iso";
+      isoPath = "/mnt/d/Games/Roms/GCN/game.iso";
       useMonthlySubfolders = true;
 
       netplayHash = "sha256-QsvayemrIztHSVcFh0I1/SOCoO6EsSTItrRQgqTWvG4=";

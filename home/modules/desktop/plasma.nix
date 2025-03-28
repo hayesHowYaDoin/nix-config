@@ -34,6 +34,8 @@ in
                     "applications:com.mitchellh.ghostty.desktop"
                     "applications:code.desktop"
                     "applications:firefox.desktop"
+                    "applications:spotify.desktop"
+                    "applications:steam.desktop"
                   ];
                 };
               };
