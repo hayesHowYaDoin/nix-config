@@ -19,6 +19,7 @@ in {
         kamikillerto.vscode-colorize
         ms-azuretools.vscode-docker
         ms-vscode-remote.remote-containers
+        ms-vscode-remote.remote-ssh
         vadimcn.vscode-lldb
       ];
       userSettings = {

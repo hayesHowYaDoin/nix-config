@@ -9,11 +9,11 @@ in
   config = mkIf cfg.enable {
     programs.ghostty = {
       enable = true;
-      settings = {
+      # settings = {
         # background-opacity = 0.8;
         # custom-shader = builtins.toString ../../assets/shaders/starfield-colors.glsl;
         # custom-shader-animation = "always";
-      };
+      # };
     };
   };
 }

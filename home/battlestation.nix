@@ -22,7 +22,7 @@
     desktop = {
       fonts.enable = true;
       ghostty.enable = true;
-      slippi.enable = true;
+      # slippi.enable = true;
       plasma.enable = true;
       vscode.enable = true;
       xdg.enable = true;

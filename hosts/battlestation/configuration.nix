@@ -32,9 +32,16 @@
   hardware.opengl.enable = true;
 
   # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.default "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  # slippi-launcher = {
+  #     enable = true;
+  #     launchMeleeOnPlay = false;
+  #     isoPath = "/mnt/d/Games/Roms/GCN/game.iso";
+  #     useMonthlySubfolders = true;
 
+  #     netplayHash = "sha256-QsvayemrIztHSVcFh0I1/SOCoO6EsSTItrRQgqTWvG4=";
+  #   };
   # Enable networking.
   networking.networkmanager.enable = true;
 

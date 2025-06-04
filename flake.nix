@@ -21,7 +21,7 @@
       inputs.hyprland.follows = "hyprland";
     };
 
-    slippi.url = "github:lytedev/slippi-nix";
+    # slippi.url = "github:lytedev/slippi-nix/44a27a202d43e6cf05e8ed32bf69c35d3aca647e";
 
     stylix = {
       url = "github:danth/stylix";
@@ -46,7 +46,7 @@
     musnix,
     nixpkgs,
     plasma-manager,
-    slippi,
+    # slippi,
     stylix,
     ...
   }@inputs: 
@@ -76,7 +76,7 @@
         modules = [
           ./hosts/battlestation/configuration.nix
           stylix.nixosModules.stylix
-          slippi.nixosModules.default
+          # slippi.nixosModules.default
         ];
       };
 
@@ -85,7 +85,7 @@
         modules = [
           ./hosts/laptop/configuration.nix
           stylix.nixosModules.stylix
-          slippi.nixosModules.default
+          # slippi.nixosModules.default
         ];
       };
 
@@ -95,7 +95,7 @@
           ./hosts/newtop/configuration.nix
           musnix.nixosModules.musnix
           stylix.nixosModules.stylix
-          slippi.nixosModules.default
+          # slippi.nixosModules.default
         ];
       };
     };
@@ -109,7 +109,7 @@
         modules = [
           ./home/battlestation.nix
           stylix.homeManagerModules.stylix
-          slippi.homeManagerModules.default
+          # slippi.homeManagerModules.default
           plasma-manager.homeManagerModules.plasma-manager
         ];
       };
@@ -120,7 +120,7 @@
         modules = [
           ./home/laptop.nix
           stylix.homeManagerModules.stylix
-          slippi.homeManagerModules.default
+          # slippi.homeManagerModules.default
         ];
       };
 
@@ -130,7 +130,7 @@
         modules = [
           ./home/newtop.nix
           stylix.homeManagerModules.stylix
-          slippi.homeManagerModules.default
+          # slippi.homeManagerModules.default
           plasma-manager.homeManagerModules.plasma-manager
         ];
       };

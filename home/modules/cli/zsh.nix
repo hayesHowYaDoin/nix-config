@@ -56,9 +56,11 @@ in {
       shellAliases = {
         os = "sudo nixos-rebuild switch --flake";
         home = "home-manager switch --flake";
-        ls = "ls --color";
+        ls = "eza";
         c = "clear";
         vim = "nvim";
+        cat = "bat";
+        du = "dust";
       };
     };
   };
