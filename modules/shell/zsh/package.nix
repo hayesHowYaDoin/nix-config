@@ -10,7 +10,7 @@
         name = "zsh";
         theme = "pristine";
         colors = "primaries";
-        sigil = "★";
+        sigil = "★ ";
       }
     );
 

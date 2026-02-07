@@ -53,7 +53,7 @@
         {
           type = "status";
           style = "plain";
-          template = "${sigil} ";
+          template = "${sigil}";
           foreground_templates = [
             "{{ if gt .Code 0 }}${colors.error}{{ else }}${colors.success}{{ end }}"
           ];
@@ -65,8 +65,7 @@
     }
   ];
   transient_prompt = {
-    # template = "★ ";
-    template = "${sigil} ";
+    template = "${sigil}";
     foreground_templates = [
       "{{ if gt .Code 0 }}${colors.error}{{ else }}${colors.success}{{ end }}"
     ];
