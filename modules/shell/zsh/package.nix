@@ -16,12 +16,13 @@
       }
     );
 
-    zdotdir = pkgs.runCommand "zdotdir" {} ''
-      mkdir -p $out
-      ln -s ${zshrc} $out/.zshrc
-    '';
-
     zshrc = pkgs.writeText "zshrc" ''
+      # Add zsh-completions to fpath (before compinit)
+      fpath+=${pkgs.zsh-completions}/share/zsh/site-functions
+
+      # Initialize completion system
+      autoload -Uz compinit && compinit
+
       # Keybinds
       bindkey -e
       bindkey '^ ' autosuggest-accept
@@ -50,6 +51,16 @@
       alias cat="bat"
       alias du="dust"
       alias lgit="lazygit"
+
+      # Plugins (fzf-tab after compinit, syntax-highlighting must be last)
+      source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
+      source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+      source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    '';
+
+    zdotdir = pkgs.runCommand "zdotdir" {} ''
+      mkdir -p $out
+      ln -s ${zshrc} $out/.zshrc
     '';
   in {
     packages.zsh = wrappers.wrapPackage {
