@@ -5,7 +5,7 @@
 }: {
   perSystem = {pkgs, ...}: let
     themeFile = pkgs.writeTextFile (
-      import (self + "/lib/oh-my-posh/build.nix") {
+      import (self + "/lib/shell/oh-my-posh/build.nix") {
         inherit config;
         name = "zsh";
         theme = "pristine";

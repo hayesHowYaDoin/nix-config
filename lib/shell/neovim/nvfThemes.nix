@@ -1,0 +1,16 @@
+[
+  "base16"
+  "mini-base16"
+  "onedark"
+  "tokyonight"
+  "dracula"
+  "catppuccin"
+  "oxocarbon"
+  "gruvbox"
+  "rose-pine"
+  "nord"
+  "github"
+  "solarized"
+  "solarized-osaka"
+  "everforest"
+]
