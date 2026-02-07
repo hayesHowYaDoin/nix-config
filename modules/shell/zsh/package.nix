@@ -4,6 +4,8 @@
   ...
 }: {
   perSystem = {pkgs, ...}: let
+    wrappers = import (self + "/lib/util/wrappers.nix");
+
     themeFile = pkgs.writeTextFile (
       import (self + "/lib/shell/oh-my-posh/build.nix") {
         inherit config;
@@ -13,18 +15,6 @@
         sigil = "★ ";
       }
     );
-
-    runtimeDeps = with pkgs; [
-      fzf
-      zoxide
-      direnv
-      oh-my-posh
-      eza
-      bat
-      dust
-      lazygit
-      neovim
-    ];
 
     zdotdir = pkgs.runCommand "zdotdir" {} ''
       mkdir -p $out
@@ -62,18 +52,26 @@
       alias lgit="lazygit"
     '';
   in {
-    packages.zsh = pkgs.symlinkJoin {
-      name = "zsh-wrapped";
-      paths = [pkgs.zsh];
-      nativeBuildInputs = [pkgs.makeWrapper];
-      postBuild = ''
-        rm $out/bin/zsh
-        makeWrapper ${pkgs.zsh}/bin/zsh $out/bin/zsh \
-          --prefix PATH : ${pkgs.lib.makeBinPath runtimeDeps} \
-          --set ZDOTDIR ${zdotdir} \
-          --add-flags "-d"
-      '';
-      meta.mainProgram = "zsh";
+    packages.zsh = wrappers.wrapPackage {
+      inherit pkgs;
+      package = pkgs.zsh;
+      runtimeDependencies = with pkgs; [
+        fzf
+        zoxide
+        direnv
+        oh-my-posh
+        eza
+        bat
+        dust
+        lazygit
+        neovim
+      ];
+      envs = {
+        ZDOTDIR = builtins.toString zdotdir;
+      };
+      flags = [
+        "-d"
+      ];
     };
   };
 }
