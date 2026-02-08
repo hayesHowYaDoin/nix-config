@@ -1,5 +1,5 @@
 {
-  flake.homeModules.shell = {
+  flake.modules.homeManager.git = {
     config,
     lib,
     ...
@@ -21,14 +21,12 @@
         };
       };
 
-      config = mkIf cfg.enable {
+      config = {
         programs.git = {
           enable = true;
           lfs.enable = true;
-          settings.user = {
-            name = cfg.userName;
-            email = cfg.userEmail;
-          };
+          inherit (cfg) userName;
+          inherit (cfg) userEmail;
         };
       };
     };

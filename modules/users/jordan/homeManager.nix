@@ -1,5 +1,16 @@
-{
-  flake.homeModules.shell = {pkgs, ...}: {
+{self, ...}: {
+  flake.homeConfigurations.jordan = {pkgs, ...}: {
+    imports = [
+      self.modules.homeManager.git
+      self.modules.homeManager.zsh
+      self.modules.homeManager.neovim
+    ];
+
+    shell.git = {
+      userName = "hayesHowYaDoin";
+      userEmail = "jordanhayes98@gmail.com";
+    };
+
     home.packages = with pkgs; [
       bat
       caligula
@@ -12,11 +23,12 @@
       fastmod
       fd
       fzf
-      btop
+      htop
       impala
       lazygit
       nitch
       nvtopPackages.full
+      oh-my-posh
       presenterm
       ripgrep
       tldr
@@ -24,6 +36,7 @@
       typst
       usbutils
       xclip
+      yazi
       zip
       zoxide
     ];
