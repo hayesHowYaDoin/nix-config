@@ -7,6 +7,7 @@
     flags ? [],
   }: let
     packageName = package.pname or package.name;
+    binaryName = package.NIX_MAIN_PROGRAM or packageName;
     prefixesMap = "--prefix PATH : ${pkgs.lib.makeBinPath runtimeDependencies}";
     setsMap = builtins.map (name: "--set ${name} ${envs.${name}}") (builtins.attrNames envs);
     flagsMap = builtins.map (f:
@@ -17,8 +18,8 @@
 
     postBuild =
       ''
-        rm $out/bin/${packageName}
-        makeWrapper ${package}/bin/${packageName} $out/bin/${packageName} \
+        rm $out/bin/${binaryName}
+        makeWrapper ${package}/bin/${binaryName} $out/bin/${binaryName} \
       ''
       + "${prefixesMap} \\\n"
       + builtins.concatStringsSep " \\\n" setsMap
@@ -32,7 +33,7 @@
     pkgs.symlinkJoin {
       name = "${packageName}-wrapped";
       paths = [package];
-      meta.mainProgram = packageName;
+      meta.mainProgram = "${binaryName}";
       nativeBuildInputs = [pkgs.makeWrapper];
       inherit postBuild;
     };

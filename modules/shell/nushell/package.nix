@@ -1,30 +1,11 @@
-{
-  config,
-  self,
-  ...
-}: {
-  perSystem = {pkgs, ...}: let
-    themeFile = pkgs.writeTextFile (
-      import (self + "/lib/shell/oh-my-posh/build.nix") {
-        inherit config;
-        name = "nushell";
-        theme = "pristine";
-        colors = "cool";
-        sigil = "✪";
-      }
-    );
-
-    runtimeDeps = with pkgs; [
-      fzf
-      zoxide
-      direnv
-      oh-my-posh
-      eza
-      bat
-      dust
-      lazygit
-      neovim
-    ];
+{self, ...}: {
+  perSystem = {
+    config,
+    pkgs,
+    ...
+  }: let
+    inherit (self.utility.wrappers) wrapPackage;
+    themeFile = config.shell.oh-my-posh.themeFiles.nushell;
 
     configFile = pkgs.writeText "config.nu" ''
       $env.config = {
@@ -99,18 +80,36 @@
       ln -s ${envFile} $out/env.nu
     '';
   in {
-    packages.nushell = pkgs.symlinkJoin {
-      name = "nushell-wrapped";
-      meta.mainProgram = "nu";
-      paths = [pkgs.nushell];
-      nativeBuildInputs = [pkgs.makeWrapper];
-      postBuild = ''
-        rm $out/bin/nu
-        makeWrapper ${pkgs.nushell}/bin/nu $out/bin/nu \
-          --prefix PATH : ${pkgs.lib.makeBinPath runtimeDeps} \
-          --add-flags "--config ${configDir}/config.nu" \
-          --add-flags "--env-config ${configDir}/env.nu"
-      '';
+    shell.oh-my-posh.themes.nushell = {
+      theme = "pristine";
+      colors = "cool";
+      sigil = "✪";
+    };
+
+    packages.nushell = wrapPackage {
+      inherit pkgs;
+      package = pkgs.nushell;
+      runtimeDependencies = with pkgs; [
+        fzf
+        zoxide
+        direnv
+        oh-my-posh
+        eza
+        bat
+        dust
+        lazygit
+        neovim
+      ];
+      flags = [
+        {
+          name = "--config";
+          value = "${configDir}/config.nu";
+        }
+        {
+          name = "--env-config";
+          value = "${configDir}/env.nu";
+        }
+      ];
     };
   };
 }

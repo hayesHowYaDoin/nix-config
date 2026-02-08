@@ -1,7 +1,7 @@
 {self, ...}: {
   perSystem = {
-    pkgs,
     config,
+    pkgs,
     ...
   }: let
     inherit (self.utility.wrappers) wrapPackage;
