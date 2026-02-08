@@ -1,0 +1,31 @@
+{
+  flake.homeModules.shell = {pkgs, ...}: {
+    home.packages = with pkgs; [
+      bat
+      caligula
+      chafa
+      coreutils
+      devenv
+      direnv
+      dust
+      eza
+      fastmod
+      fd
+      fzf
+      btop
+      impala
+      lazygit
+      nitch
+      nvtopPackages.full
+      presenterm
+      ripgrep
+      tldr
+      tmux
+      typst
+      usbutils
+      xclip
+      zip
+      zoxide
+    ];
+  };
+}

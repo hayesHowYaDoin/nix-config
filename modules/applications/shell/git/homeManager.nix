@@ -1,5 +1,5 @@
 {
-  flake.aspects.shell.git.homeManager = {
+  flake.homeModules.shell = {
     config,
     lib,
     ...
@@ -7,7 +7,7 @@
     with lib; let
       cfg = config.shell.git;
     in {
-      options.features.shell.git = {
+      options.shell.git = {
         userName = mkOption {
           type = types.str;
           example = "hayesHowYaDoin";
