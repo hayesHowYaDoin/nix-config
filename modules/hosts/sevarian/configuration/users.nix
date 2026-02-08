@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.modules.nixos.kenny = {
+  flake.modules.nixos.sevarian-configuration = {
     imports = [
       self.modules.nixos.jordan
     ];

@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.homeConfigurations.jordan = {pkgs, ...}: {
+  flake.modules.homeManager.jordan = {pkgs, ...}: {
     imports = [
       self.modules.homeManager.git
       self.modules.homeManager.zsh

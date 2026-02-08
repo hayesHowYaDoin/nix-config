@@ -28,8 +28,5 @@
       imports = [
         (import-tree ./modules)
       ];
-    }
-    // {
-      utility = import ./utility;
     };
 }

@@ -4,7 +4,7 @@
     pkgs,
     ...
   }: let
-    inherit (self.utility.wrappers) wrapPackage;
+    inherit (self.lib) wrapPackage;
     themeFile = config.shell.oh-my-posh.themeFiles.zsh;
 
     zshrc = pkgs.writeText "zshrc" ''

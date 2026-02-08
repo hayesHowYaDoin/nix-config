@@ -1,5 +1,5 @@
-{
-  wrapPackage = {
+_: {
+  flake.lib.wrapPackage = {
     pkgs,
     package,
     runtimeDependencies ? [],
