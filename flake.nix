@@ -31,5 +31,8 @@
         flake-aspects.flakeModule
         (import-tree ./modules)
       ];
+    }
+    // {
+      utility = import ./utility;
     };
 }

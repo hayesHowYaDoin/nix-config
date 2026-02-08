@@ -1,10 +1,9 @@
 {
   inputs,
-  self,
   ...
 }: {
   perSystem = {pkgs, ...}: let
-    mkNeovim = import (self + "/lib/shell/neovim/mkNeovim.nix");
+    mkNeovim = import ./_lib/mkNeovim.nix;
   in {
     packages.neovim =
       (mkNeovim {

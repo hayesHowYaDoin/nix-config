@@ -14,11 +14,11 @@
     then let
       scheme = config.colorScheme;
     in {
-      primary = "#${scheme.palette.base08}"; # red
-      secondary = "#${scheme.palette.base0D}"; # blue
-      tertiary = "#${scheme.palette.base03}"; # bright black
-      success = "#${scheme.palette.base0A}"; # yellow
-      error = "#${scheme.palette.base08}"; # red
+      primary = "#${scheme.palette.base08}";
+      secondary = "#${scheme.palette.base0D}";
+      tertiary = "#${scheme.palette.base03}";
+      success = "#${scheme.palette.base0A}";
+      error = "#${scheme.palette.base08}";
     }
     else {
       primary = "#ed8274";

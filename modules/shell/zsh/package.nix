@@ -1,20 +1,11 @@
-{
-  config,
-  self,
-  ...
-}: {
-  perSystem = {pkgs, ...}: let
-    wrappers = import (self + "/lib/util/wrappers.nix");
-
-    themeFile = pkgs.writeTextFile (
-      import (self + "/lib/shell/oh-my-posh/build.nix") {
-        inherit config;
-        name = "zsh";
-        theme = "pristine";
-        colors = "primaries";
-        sigil = "★ ";
-      }
-    );
+{self, ...}: {
+  perSystem = {
+    pkgs,
+    config,
+    ...
+  }: let
+    inherit (self.utility.wrappers) wrapPackage;
+    themeFile = config.shell.oh-my-posh.themeFiles.zsh;
 
     zshrc = pkgs.writeText "zshrc" ''
       # Add zsh-completions to fpath (before compinit)
@@ -63,7 +54,13 @@
       ln -s ${zshrc} $out/.zshrc
     '';
   in {
-    packages.zsh = wrappers.wrapPackage {
+    shell.oh-my-posh.themes.zsh = {
+      theme = "pristine";
+      colors = "primaries";
+      sigil = "★ ";
+    };
+
+    packages.zsh = wrapPackage {
       inherit pkgs;
       package = pkgs.zsh;
       runtimeDependencies = with pkgs; [
