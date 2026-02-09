@@ -4,7 +4,7 @@
     pkgs,
     ...
   }: let
-    inherit (self.lib) wrapPackage;
+    inherit (self.lib) wrapShell;
     themeFile = config.shell.oh-my-posh.themeFiles.zsh;
 
     zshrc = pkgs.writeText "zshrc" ''
@@ -60,7 +60,7 @@
       sigil = "★ ";
     };
 
-    packages.zsh = wrapPackage {
+    packages.zsh = wrapShell {
       inherit pkgs;
       package = pkgs.zsh;
       runtimeDependencies = with pkgs; [

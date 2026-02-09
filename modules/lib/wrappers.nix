@@ -1,4 +1,4 @@
-_: {
+_: let
   flake.lib.wrapPackage = {
     pkgs,
     package,
@@ -7,7 +7,7 @@ _: {
     flags ? [],
   }: let
     packageName = package.pname or package.name;
-    binaryName = package.NIX_MAIN_PROGRAM or packageName;
+    binaryName = package.meta.mainProgram or packageName;
     prefixesMap = "--prefix PATH : ${pkgs.lib.makeBinPath runtimeDependencies}";
     setsMap = builtins.map (name: "--set ${name} ${envs.${name}}") (builtins.attrNames envs);
     flagsMap = builtins.map (f:
@@ -37,4 +37,18 @@ _: {
       nativeBuildInputs = [pkgs.makeWrapper];
       inherit postBuild;
     };
+
+  flake.lib.wrapShell = {package, ...} @ args: let
+    packageName = package.pname or package.name;
+    binaryName = package.meta.mainProgram or packageName;
+  in
+    (flake.lib.wrapPackage args).overrideAttrs (old: {
+      passthru =
+        (old.passthru or {})
+        // {
+          shellPath = "/bin/${binaryName}";
+        };
+    });
+in {
+  inherit flake;
 }

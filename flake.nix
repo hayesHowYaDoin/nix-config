@@ -5,18 +5,17 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixos-hardware.url = "github:nixos/nixos-hardware";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nvf.url = "github:notashelf/nvf";
-    nixgl = {
-      url = "github:guibou/nixGL";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nvf.inputs.nixpkgs.follows = "nixpkgs";
+    nixgl.url = "github:guibou/nixGL";
+    nixgl.inputs.nixpkgs.follows = "nixpkgs";
     budgetviz.url = "github:hayesHowYaDoin/budgetviz";
-    nvim-config.url = "github:hayesHowYaDoin/nvim_config";
+    budgetviz.inputs.nixpkgs.follows = "nixpkgs";
     wheel-wizard-nix.url = "github:hayesHowYaDoin/wheel-wizard-nix";
+    wheel-wizard-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs @ {

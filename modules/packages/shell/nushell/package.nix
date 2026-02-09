@@ -4,7 +4,7 @@
     pkgs,
     ...
   }: let
-    inherit (self.lib) wrapPackage;
+    inherit (self.lib) wrapShell;
     themeFile = config.shell.oh-my-posh.themeFiles.nushell;
 
     configFile = pkgs.writeText "config.nu" ''
@@ -86,7 +86,7 @@
       sigil = "✪";
     };
 
-    packages.nushell = wrapPackage {
+    packages.nushell = wrapShell {
       inherit pkgs;
       package = pkgs.nushell;
       runtimeDependencies = with pkgs; [
