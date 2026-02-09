@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.configuration-sleepless = {
+  flake.modules.nixos.sleepless = {
     systemd.sleep.extraConfig = ''
       AllowSuspend=no
       AllowHibernation=no

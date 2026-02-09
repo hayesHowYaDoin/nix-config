@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.configuration-packages-default = {
+  flake.modules.nixos.default-shell = {
     self,
     pkgs,
     ...
@@ -9,10 +9,8 @@
     environment.systemPackages = with pkgs; [
       self.packages.${system}.zsh
       self.packages.${system}.nushell
-      self.packages.${system}.neovim
     ];
 
-    environment.variables.EDITOR = "nvim";
     users.defaultUserShell = self.packages.${system}.zsh;
   };
 }

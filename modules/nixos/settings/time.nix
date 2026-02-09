@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.configuration-time = {
+  flake.modules.nixos.time = {
     time.timeZone = "America/Denver";
   };
 }
