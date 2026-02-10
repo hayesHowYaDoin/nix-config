@@ -12,6 +12,8 @@
     nvf.inputs.nixpkgs.follows = "nixpkgs";
     nixgl.url = "github:guibou/nixGL";
     nixgl.inputs.nixpkgs.follows = "nixpkgs";
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     budgetviz.url = "github:hayesHowYaDoin/budgetviz";
     budgetviz.inputs.nixpkgs.follows = "nixpkgs";
     wheel-wizard-nix.url = "github:hayesHowYaDoin/wheel-wizard-nix";

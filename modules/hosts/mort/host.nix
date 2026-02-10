@@ -2,9 +2,11 @@
   self,
   inputs,
   ...
-}: {
+}: let
+  system = "aarch64-linux";
+in {
   flake.nixosConfigurations.mort = inputs.nixpkgs.lib.nixosSystem {
-    system = "aarch64-linux";
+    inherit system;
     specialArgs = {inherit self inputs;};
     modules = [
       "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"

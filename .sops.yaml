@@ -1,0 +1,12 @@
+# SOPS configuration for managing secrets
+# Age key located at: ~/.config/sops/age/keys.txt
+
+keys:
+  - &sevarian  age1td5qpq9pafpwwu9dlm73ryn7n7pqgddxj2fdu8c6q4ku2v4vee0q3expkm
+  - &mort age1zjkuq2a5399xggvynxy7q8nuexw34hxl04ypephqd00ndexnrcnqkkgfpg
+creation_rules:
+  - path_regex: secrets/secrets\.yaml$
+    key_groups:
+      - age:
+          - *sevarian
+          - *mort

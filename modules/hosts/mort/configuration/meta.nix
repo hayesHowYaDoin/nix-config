@@ -1,7 +1,7 @@
 {self, ...}: {
   flake.modules.nixos.mort-configuration = {
     imports = with self.modules.nixos; [
-      default-user
+      time
     ];
   };
 }
