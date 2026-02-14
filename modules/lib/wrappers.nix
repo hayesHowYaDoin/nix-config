@@ -32,7 +32,7 @@ _: let
   in
     pkgs.symlinkJoin {
       name = "${packageName}-wrapped";
-      paths = [package];
+      paths = [package] ++ runtimeDependencies;
       meta.mainProgram = "${binaryName}";
       nativeBuildInputs = [pkgs.makeWrapper];
       inherit postBuild;

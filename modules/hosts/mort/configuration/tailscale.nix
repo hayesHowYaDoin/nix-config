@@ -3,7 +3,6 @@
     imports = with self.modules.nixos; [
       sops
       tailscale
-      tailscale-exit-node
       tailscale-ssh
     ];
 
