@@ -1,19 +1,10 @@
-{
-  den,
-  self,
-  ...
-}: {
+{den, ...}: {
   den.aspects.staging.includes = with den.aspects; [
+    default-editor
+    default-shell
     flakes
+    time
     remote-deploy
     vm-guest
   ];
-
-  den.aspects.staging.nixos = {
-    imports = with self.modules.nixos; [
-      default-editor
-      default-shell
-      time
-    ];
-  };
 }

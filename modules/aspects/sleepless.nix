@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.sleepless = {
+  den.aspects.sleepless.nixos = {
     systemd.sleep.extraConfig = ''
       AllowSuspend=no
       AllowHibernation=no

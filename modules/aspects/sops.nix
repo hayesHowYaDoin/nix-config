@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.sops = {
+  den.aspects.sops.nixos = {
     inputs,
     self,
     ...

@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.nvidia = {config, ...}: {
+  den.aspects.nvidia.nixos = {
     services.xserver.videoDrivers = ["nvidia"];
     hardware = {
       graphics.enable = true;
@@ -10,7 +10,7 @@
         powerManagement.finegrained = false;
         open = true;
         nvidiaSettings = true;
-        package = config.boot.kernelPackages.nvidiaPackages.stable;
+        # package = config.boot.kernelPackages.nvidiaPackages.stable;
       };
 
       nvidia-container-toolkit.enable = true;

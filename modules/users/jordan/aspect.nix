@@ -4,16 +4,16 @@
   ...
 }: {
   den.aspects.jordan = {
-    includes = with den.batteries; [
-      define-user
-      primary-user
+    includes = [
+      den.batteries.define-user
+      den.batteries.primary-user
     ];
 
-    nixos = {pkgs, ...}: {
+    nixos = {self', ...}: {
       users.users.jordan = {
         description = "jordan";
         extraGroups = ["dialout"];
-        shell = self.packages.${pkgs.stdenv.hostPlatform.system}.zsh;
+        shell = self'.packages.zsh;
       };
     };
 
