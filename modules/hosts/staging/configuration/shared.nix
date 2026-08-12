@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.modules.nixos.staging-configuration = {
+  den.aspects.staging.nixos = {
     imports = with self.modules.nixos; [
       default-editor
       default-shell

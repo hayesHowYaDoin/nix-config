@@ -1,6 +1,6 @@
-{
-  flake.modules.nixos.staging-configuration = {
-    networking.hostName = "staging";
+{den, ...}: {
+  den.aspects.staging.includes = [den.batteries.hostname];
+  den.aspects.staging.nixos = {
     networking.useDHCP = true;
   };
 }
