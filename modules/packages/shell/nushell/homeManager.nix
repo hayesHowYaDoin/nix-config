@@ -1,7 +1,5 @@
 {
-  flake.modules.homeManager.nushell = {
-    perSystem = {self', ...}: {
-      home.packages = [self'.packages.nushell];
-    };
+  flake.modules.homeManager.nushell = {self', ...}: {
+    home.packages = [self'.packages.nushell];
   };
 }

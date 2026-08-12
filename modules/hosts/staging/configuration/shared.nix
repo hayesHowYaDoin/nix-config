@@ -13,7 +13,6 @@
     imports = with self.modules.nixos; [
       default-editor
       default-shell
-      nixpkgs-unfree
       time
     ];
   };
