@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.modules.nixos.sevarian-hardware = {
+  flake.modules.nixos.severian-hardware = {
     imports = with self.modules.nixos; [
       nvidia
     ];

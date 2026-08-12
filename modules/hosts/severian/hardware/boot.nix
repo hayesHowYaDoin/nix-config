@@ -1,5 +1,5 @@
 _: {
-  flake.modules.nixos.sevarian-hardware = {pkgs, ...}: {
+  flake.modules.nixos.severian-hardware = {pkgs, ...}: {
     boot = {
       loader = {
         systemd-boot.enable = true;

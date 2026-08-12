@@ -1,5 +1,5 @@
 _: {
-  flake.modules.nixos.sevarian-hardware = {
+  flake.modules.nixos.severian-hardware = {
     fileSystems = {
       "/" = {
         device = "/dev/disk/by-uuid/b0407a50-9dc2-44aa-b10b-88993b3d34ea";
