@@ -1,5 +1,5 @@
-_: {
-  flake.modules.nixos.staging-hardware = {
+{
+  den.aspects.vm-guest.nixos = {
     boot.initrd.kernelModules = [
       "virtio_balloon"
       "virtio_console"

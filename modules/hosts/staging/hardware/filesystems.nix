@@ -1,5 +1,5 @@
-_: {
-  flake.modules.nixos.staging-hardware = {
+{
+  den.aspects.staging.nixos = {
     fileSystems."/" = {
       device = "/dev/disk/by-uuid/63400356-8912-4bf8-9aaa-617072aaefba";
       fsType = "ext4";

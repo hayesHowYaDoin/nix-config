@@ -1,5 +1,5 @@
-_: {
-  flake.modules.nixos.staging-hardware = {pkgs, ...}: {
+{
+  den.aspects.staging.nixos = {pkgs, ...}: {
     boot = {
       loader.grub = {
         enable = true;
