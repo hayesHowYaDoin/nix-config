@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.neovim = {self', ...}: {
+  den.aspects.neovim.homeManager = {self', ...}: {
     home.packages = [self'.packages.neovim];
   };
 }

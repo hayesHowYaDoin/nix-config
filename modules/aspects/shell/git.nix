@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.git = {
+  den.aspects.git.homeManager = {
     config,
     lib,
     ...
@@ -8,13 +8,13 @@
       cfg = config.shell.git;
     in {
       options.shell.git = {
-        userName = mkOption {
+        name = mkOption {
           type = types.str;
           example = "hayesHowYaDoin";
           description = "User name associated with the desired git account.";
         };
 
-        userEmail = mkOption {
+        email = mkOption {
           type = types.str;
           example = "jordanhayes98@gmail.com";
           description = "User email associated with the desired git account.";
@@ -25,8 +25,10 @@
         programs.git = {
           enable = true;
           lfs.enable = true;
-          inherit (cfg) userName;
-          inherit (cfg) userEmail;
+          settings.user = {
+            inherit (cfg) name;
+            inherit (cfg) email;
+          };
         };
       };
     };

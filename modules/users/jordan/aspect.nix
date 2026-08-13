@@ -1,12 +1,12 @@
-{
-  self,
-  den,
-  ...
-}: {
+{den, ...}: {
   den.aspects.jordan = {
     includes = [
       den.batteries.define-user
       den.batteries.primary-user
+      den.aspects.git
+      den.aspects.zsh
+      den.aspects.nushell
+      den.aspects.neovim
     ];
 
     nixos = {self', ...}: {
@@ -18,15 +18,9 @@
     };
 
     homeManager = {pkgs, ...}: {
-      imports = [
-        self.modules.homeManager.git
-        self.modules.homeManager.zsh
-        self.modules.homeManager.neovim
-      ];
-
       shell.git = {
-        userName = "hayesHowYaDoin";
-        userEmail = "jordanhayes98@gmail.com";
+        name = "hayesHowYaDoin";
+        email = "jordanhayes98@gmail.com";
       };
 
       home.packages = with pkgs; [
