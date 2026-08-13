@@ -2,6 +2,6 @@
   imports = [
     inputs.home-manager.flakeModules.home-manager
     inputs.den.flakeModule
-    #inputs.den.flakeModules.strict
+    # inputs.den.flakeModules.strict
   ];
 }

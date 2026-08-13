@@ -4,16 +4,13 @@
       den.batteries.define-user
       den.batteries.primary-user
       den.aspects.git
-      den.aspects.zsh
-      den.aspects.nushell
-      den.aspects.neovim
     ];
 
-    nixos = {self', ...}: {
+    nixos = {pkgs, ...}: {
       users.users.jordan = {
         description = "jordan";
         extraGroups = ["dialout"];
-        shell = self'.packages.zsh;
+        shell = pkgs.zsh;
       };
     };
 
