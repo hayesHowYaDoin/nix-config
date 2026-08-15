@@ -1,5 +1,5 @@
 {
-  den.aspects.tailscale-exit-node = {
+  den.aspects.tailscale-exit-node.nixos = {
     services.tailscale.extraSetFlags = [
       "--advertise-exit-node"
       "--exit-node-allow-lan-access=true"
