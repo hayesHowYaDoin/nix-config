@@ -18,6 +18,9 @@
         unfree
       ];
     };
-    schema.user.classes = lib.mkDefault ["homeManager"];
+    schema = {
+      user.classes = lib.mkDefault ["homeManager"];
+      # flake-system.includes = [den.aspects.flake];
+    };
   };
 }

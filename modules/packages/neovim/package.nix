@@ -1,14 +1,9 @@
-{
-  inputs,
-  ...
-}: {
-  perSystem = {pkgs, ...}: let
-    mkNeovim = import ./_lib/mkNeovim.nix;
-  in {
-    packages.neovim =
-      (mkNeovim {
-        inherit pkgs;
-        inherit (inputs) nvf;
-      }).neovim;
+{config, ...}: {
+  perSystem = {pkgs, ...}: {
+    packages.neovim = config.den.lib.nvf.package pkgs config.den.aspects.neovim {
+      theme = "gruvbox-material";
+      themeStyle = "medium";
+      transparent = true;
+    };
   };
 }
