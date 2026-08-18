@@ -7,5 +7,8 @@
     audiobookshelf
     jellyfin
     jellyseerr
+    radarr
+    sonarr
+    flaresolverr
   ];
 }
