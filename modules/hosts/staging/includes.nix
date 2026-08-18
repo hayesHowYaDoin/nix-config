@@ -9,6 +9,6 @@
     jellyseerr
     radarr
     sonarr
-    flaresolverr
+    (byparr {})
   ];
 }
