@@ -1,38 +1,50 @@
 {
-  den.aspects.qbittorrent = {den, ...}: {
+  den.aspects.qbittorrent = {
+    downloadsDir,
+    user ? "qbittorrent",
+    dataDir ? "/var/lib/qbittorrent",
+    port ? 8080,
+    den,
+    ...
+  }: {
     includes = [
       (den.aspects.vpn-namespaced {
         name = "qbittorrent-nox";
-        port = 8080;
-        execCommand = pkgs: "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=8080";
+        inherit user port;
+        execCommand = pkgs: "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=${toString port} --profile=${dataDir}";
       })
     ];
 
     nixos = {pkgs, ...}: {
       environment.systemPackages = [pkgs.qbittorrent-nox];
 
-      networking.firewall.allowedTCPPorts = [8080];
+      networking.firewall.allowedTCPPorts = [port];
 
-      system.activationScripts.qbittorrent-config = {
+      users.users.${user} = {
+        isSystemUser = true;
+        group = user;
+        home = dataDir;
+        createHome = true;
+      };
+      users.groups.${user} = {};
+
+      system.activationScripts."qbittorrent-${user}-config" = {
         text = ''
-          mkdir -p /home/jordan/.config/qBittorrent
-          chown jordan:users /home/jordan/.config/qBittorrent
-          chmod 755 /home/jordan/.config/qBittorrent
-
-          if [ ! -f /home/jordan/.config/qBittorrent/qBittorrent.conf ]; then
-            cat > /home/jordan/.config/qBittorrent/qBittorrent.conf << 'EOF'
+          mkdir -p ${dataDir}/qBittorrent/config
+          if [ ! -f ${dataDir}/qBittorrent/config/qBittorrent.conf ]; then
+            cat > ${dataDir}/qBittorrent/config/qBittorrent.conf << 'EOF'
           [Preferences]
           WebUI\Address=0.0.0.0
-          WebUI\Port=8080
-          Downloads\SavePath=/home/jordan/Downloads
+          WebUI\Port=${toString port}
+          Downloads\SavePath=${downloadsDir}
           General\UseRandomPort=false
           Connection\PortRangeMin=6881
           Advanced\RecheckOnCompletion=false
-          BitTorrent\Session\DefaultSavePath=/home/jordan/Downloads
+          BitTorrent\Session\DefaultSavePath=${downloadsDir}
           EOF
-            chown jordan:users /home/jordan/.config/qBittorrent/qBittorrent.conf
-            chmod 600 /home/jordan/.config/qBittorrent/qBittorrent.conf
           fi
+          chown -R ${user}:${user} ${dataDir}
+          chmod 600 ${dataDir}/qBittorrent/config/qBittorrent.conf
         '';
         deps = [];
       };

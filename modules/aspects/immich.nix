@@ -1,21 +1,28 @@
 {
-  den.aspects.immich.nixos = {
-    services.immich = {
-      enable = true;
-      port = 2283;
-      host = "0.0.0.0";
-      mediaLocation = "/mnt/d/media/pictures";
-    };
+  den.aspects.immich = {
+    mediaLocation,
+    port ? 2283,
+    ...
+  }: {
+    name = "immich";
+    nixos = {
+      services.immich = {
+        enable = true;
+        inherit port;
+        host = "0.0.0.0";
+        inherit mediaLocation;
+      };
 
-    users.groups.users.members = ["immich"];
+      users.groups.users.members = ["immich"];
 
-    systemd.services.immich-server.serviceConfig = {
-      ReadWritePaths = ["/mnt/d/media/pictures"];
-    };
-    systemd.services.immich-machine-learning.serviceConfig = {
-      ReadWritePaths = ["/mnt/d/media/pictures"];
-    };
+      systemd.services.immich-server.serviceConfig = {
+        ReadWritePaths = [mediaLocation];
+      };
+      systemd.services.immich-machine-learning.serviceConfig = {
+        ReadWritePaths = [mediaLocation];
+      };
 
-    networking.firewall.allowedTCPPorts = [2283];
+      networking.firewall.allowedTCPPorts = [port];
+    };
   };
 }

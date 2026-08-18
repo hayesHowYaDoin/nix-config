@@ -1,10 +1,16 @@
 {
-  den.aspects.prowlarr = {den, ...}: {
+  den.aspects.prowlarr = {
+    user ? "prowlarr",
+    dataDir ? "/var/lib/prowlarr",
+    port ? 9696,
+    den,
+    ...
+  }: {
     includes = [
       (den.aspects.vpn-namespaced {
         name = "prowlarr";
-        port = 9696;
-        execCommand = pkgs: "${pkgs.prowlarr}/bin/Prowlarr -nobrowser -data=/home/jordan/.config/Prowlarr";
+        inherit user port;
+        execCommand = pkgs: "${pkgs.prowlarr}/bin/Prowlarr -nobrowser -data=${dataDir}";
         extraEnv.DOTNET_SYSTEM_NET_DISABLEIPV6 = "1";
       })
     ];
@@ -12,16 +18,15 @@
     nixos = {pkgs, ...}: {
       environment.systemPackages = [pkgs.prowlarr];
 
-      networking.firewall.allowedTCPPorts = [9696];
+      networking.firewall.allowedTCPPorts = [port];
 
-      system.activationScripts.prowlarr-config = {
-        text = ''
-          mkdir -p /home/jordan/.config/Prowlarr
-          chown jordan:users /home/jordan/.config/Prowlarr
-          chmod 755 /home/jordan/.config/Prowlarr
-        '';
-        deps = [];
+      users.users.${user} = {
+        isSystemUser = true;
+        group = user;
+        home = dataDir;
+        createHome = true;
       };
+      users.groups.${user} = {};
     };
   };
 }

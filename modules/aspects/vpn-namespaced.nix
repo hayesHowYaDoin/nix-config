@@ -5,7 +5,7 @@
     # execCommand is a function of pkgs: pkgs -> string
     # e.g. execCommand = pkgs: "${pkgs.prowlarr}/bin/Prowlarr -nobrowser ...";
     execCommand,
-    user ? "jordan",
+    user,
     extraEnv ? {},
     ...
   }: {
