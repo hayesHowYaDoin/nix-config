@@ -3,5 +3,6 @@
     tailscale
     tailscale-ssh
     vm-guest
+    uptime-kuma
   ];
 }
