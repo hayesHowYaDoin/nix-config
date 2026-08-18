@@ -4,5 +4,6 @@
     tailscale-ssh
     vm-guest
     uptime-kuma
+    audiobookshelf
   ];
 }
