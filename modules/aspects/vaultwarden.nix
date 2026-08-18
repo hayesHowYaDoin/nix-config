@@ -1,10 +1,9 @@
-{
+{den, ...}: {
   den.aspects.vaultwarden = {
     dataDir ? "/var/lib/vaultwarden",
     port ? 8222,
     domain ? null,
     signupsAllowed ? true,
-    den,
     ...
   }: {
     includes = [

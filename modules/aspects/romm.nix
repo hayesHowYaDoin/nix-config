@@ -1,5 +1,5 @@
-{
-  den.aspects.romm = {den, ...}: {
+{den, ...}: {
+  den.aspects.romm = {
     includes = [
       (den.aspects.tailscale-serve {
         name = "romm";

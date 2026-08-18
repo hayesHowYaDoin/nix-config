@@ -1,9 +1,8 @@
-{
+{den, ...}: {
   den.aspects.prowlarr = {
     user ? "prowlarr",
     dataDir ? "/var/lib/prowlarr",
     port ? 9696,
-    den,
     ...
   }: {
     includes = [

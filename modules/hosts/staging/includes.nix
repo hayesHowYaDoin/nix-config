@@ -5,5 +5,7 @@
     vm-guest
     uptime-kuma
     audiobookshelf
+    jellyfin
+    jellyseerr
   ];
 }

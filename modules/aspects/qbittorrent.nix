@@ -1,10 +1,9 @@
-{
+{den, ...}: {
   den.aspects.qbittorrent = {
     downloadsDir,
     user ? "qbittorrent",
     dataDir ? "/var/lib/qbittorrent",
     port ? 8080,
-    den,
     ...
   }: {
     includes = [

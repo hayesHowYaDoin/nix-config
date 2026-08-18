@@ -1,5 +1,5 @@
-{
-  den.aspects.jellyfin = {den, ...}: {
+{den, ...}: {
+  den.aspects.jellyfin = {
     includes = [
       (den.aspects.tailscale-funnel {
         name = "jellyfin";

@@ -1,9 +1,8 @@
-{
+{den, ...}: {
   den.aspects.calibre = {
     libraryPath,
     port ? 8083,
     tailscalePort ? null,
-    den,
     ...
   }: {
     includes =
