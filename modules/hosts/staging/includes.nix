@@ -9,6 +9,6 @@
     jellyseerr
     radarr
     sonarr
-    (byparr {})
+    byparr
   ];
 }
