@@ -10,5 +10,6 @@
     radarr
     sonarr
     byparr
+    budgetviz
   ];
 }
