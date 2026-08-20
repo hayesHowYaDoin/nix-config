@@ -3,7 +3,6 @@
     region ? "us",
     ...
   }: {
-    name = "nordvpn";
     nixos = {
       pkgs,
       config,

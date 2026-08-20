@@ -4,7 +4,6 @@
     port ? 2283,
     ...
   }: {
-    name = "immich";
     nixos = {
       services.immich = {
         enable = true;

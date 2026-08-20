@@ -6,7 +6,6 @@
     wayland ? true,
     ...
   }: {
-    name = "gnome";
     nixos = {
       services = {
         displayManager = {

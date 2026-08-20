@@ -13,7 +13,6 @@
     displayManagerService ? "display-manager.service",
     ...
   }: {
-    name = "virtualization";
     nixos = {
       pkgs,
       lib,

@@ -18,7 +18,6 @@
     smartMailRecipient ? null,
     ...
   }: {
-    name = "storage";
     nixos = {pkgs, ...}: {
       fileSystems.${mountPoint} = {
         # For btrfs RAID, mount using any single member; kernel finds the rest.

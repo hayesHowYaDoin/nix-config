@@ -5,7 +5,6 @@
     useVirusTotal ? false,
     ...
   }: {
-    name = "clamav";
     nixos = {
       pkgs,
       config,

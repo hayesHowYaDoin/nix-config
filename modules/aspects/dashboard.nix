@@ -21,7 +21,6 @@
     allowedHosts ? "*",
     ...
   }: {
-    name = "dashboard";
     nixos = {config, ...}: let
       host = config.networking.hostName;
 

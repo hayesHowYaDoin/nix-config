@@ -9,7 +9,7 @@
     jellyseerr
     radarr
     sonarr
-    byparr
+    (byparr {})
     budgetviz
   ];
 }

@@ -10,7 +10,6 @@
     timezone ? "America/Denver",
     ...
   }: {
-    name = "tdarr";
     nixos = {config, ...}: {
       users.users.${user} = {
         isSystemUser = true;

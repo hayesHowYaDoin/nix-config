@@ -1,13 +1,11 @@
-{
+{den, ...}: {
   den.aspects.clamav-watch = {
     watchDirs,
     quarantineDir,
     logDir ? "/var/log/virus-scan",
     useVirusTotal ? false,
-    den,
     ...
   }: {
-    name = "clamav-watch";
     includes = [
       (den.aspects.clamav {
         inherit quarantineDir logDir useVirusTotal;

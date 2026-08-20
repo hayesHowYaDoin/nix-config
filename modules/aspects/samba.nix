@@ -7,7 +7,6 @@
     guestAccess ? true,
     ...
   }: {
-    name = "samba";
     nixos = {config, ...}: {
       services.samba = {
         enable = true;
