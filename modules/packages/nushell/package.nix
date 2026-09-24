@@ -2,6 +2,7 @@
   perSystem = {
     config,
     pkgs,
+    system,
     ...
   }: let
     inherit (self.lib) wrapShell;
@@ -98,7 +99,7 @@
         bat
         dust
         lazygit
-        neovim
+        self.packages.${system}.neovim
       ];
       flags = [
         {
