@@ -535,7 +535,10 @@
             gtk = {
               enable = true;
               gtk3.extraCss = gtkCss;
-              gtk4.extraCss = gtkCss;
+              gtk4 = {
+                extraCss = gtkCss;
+                theme = null;
+              };
 
               theme = mkIf (!stylixManagesTheme) {
                 name = "Adwaita-dark";

@@ -12,7 +12,7 @@
         opacity = 0.8;
         windowDecoration = false;
       })
-      (hayes.gnome {autoLoginUser = "jordan";})
+      hayes.hyprland-desktop
     ];
 
     nixos = {pkgs, ...}: {

@@ -12,6 +12,8 @@
     sonarr
     (byparr {})
     budgetviz
-    (gnome {autoLoginUser = "jordan";})
+    audio
+    hyprland
+    (sddm {autoLoginUser = "jordan";})
   ];
 }

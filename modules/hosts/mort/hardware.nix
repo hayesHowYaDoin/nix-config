@@ -11,6 +11,7 @@
         generic-extlinux-compatible.enable = true;
       };
       kernelParams = ["console=ttyS1,115200n8"];
+      zfs.forceImportRoot = false;
     };
 
     environment.systemPackages = [inputs.nixpkgs.legacyPackages.aarch64-linux.libraspberrypi];
