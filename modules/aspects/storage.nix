@@ -1,5 +1,5 @@
 {
-  den.aspects.storage = {
+  hayes.storage = {
     devices,
     mountPoint,
     user,

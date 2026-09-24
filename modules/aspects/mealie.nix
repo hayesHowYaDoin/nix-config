@@ -1,5 +1,5 @@
 {
-  den.aspects.mealie.nixos = {
+  hayes.mealie.nixos = {
     pkgs,
     config,
     ...

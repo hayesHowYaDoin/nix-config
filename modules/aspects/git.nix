@@ -1,5 +1,5 @@
 {
-  den.aspects.git.homeManager = {
+  hayes.git.homeManager = {
     config,
     lib,
     ...

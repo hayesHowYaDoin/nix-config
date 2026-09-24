@@ -1,5 +1,5 @@
 {
-  den.aspects.dashboard = {
+  hayes.dashboard = {
     # attrset: category name -> list of service entries
     # each service: { name; port; icon ? "..."; description ? "..."; scheme ? "http"; useTailnet ? false; externalPort ? null; }
     services ? {},

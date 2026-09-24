@@ -1,6 +1,6 @@
 {
   self,
-  den,
+  hayes,
   lib,
   ...
 }: {
@@ -9,7 +9,7 @@
       nixos._module.args.self = self;
       nixos.nixpkgs.overlays = [self.overlays.default];
       homeManager.home.stateVersion = "25.11";
-      includes = with den.aspects; [
+      includes = with hayes; [
         default-editor
         default-shell
         flakes
@@ -20,7 +20,6 @@
     };
     schema = {
       user.classes = lib.mkDefault ["homeManager"];
-      # flake-system.includes = [den.aspects.flake];
     };
   };
 }

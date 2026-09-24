@@ -1,5 +1,5 @@
 {
-  den.aspects.radarr.nixos = {pkgs, ...}: {
+  hayes.radarr.nixos = {pkgs, ...}: {
     services.radarr = {
       enable = true;
       openFirewall = true;

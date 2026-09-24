@@ -1,9 +1,5 @@
-{
-  den.aspects.sops.nixos = {
-    inputs,
-    self,
-    ...
-  }: {
+{inputs, ...}: {
+  hayes.sops.nixos = {self, ...}: {
     imports = [inputs.sops-nix.nixosModules.sops];
     sops = {
       defaultSopsFile = "${self}/secrets/secrets.yaml";

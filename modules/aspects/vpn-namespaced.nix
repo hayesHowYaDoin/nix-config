@@ -1,5 +1,5 @@
 {
-  den.aspects.vpn-namespaced = {
+  hayes.vpn-namespaced = {
     name,
     port,
     # execCommand is a function of pkgs: pkgs -> string
@@ -11,6 +11,7 @@
   }: {
     name = "vpn-namespaced/${name}";
     nixos = {pkgs, ...}: {
+      environment.etc."vpn-namespaced-marker-${name}".text = "marker for ${name}";
       systemd.services.${name} = {
         description = "${name} in VPN-isolated network namespace";
         after = ["vpn-netns-setup.service"];

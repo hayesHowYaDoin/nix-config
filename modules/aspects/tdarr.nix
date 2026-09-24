@@ -1,5 +1,5 @@
 {
-  den.aspects.tdarr = {
+  hayes.tdarr = {
     mediaDir,
     user ? "tdarr",
     dataDir ? "/var/lib/tdarr",

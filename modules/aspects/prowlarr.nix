@@ -1,12 +1,13 @@
-{den, ...}: {
-  den.aspects.prowlarr = {
+{hayes, ...}: {
+  hayes.prowlarr = {
     user ? "prowlarr",
     dataDir ? "/var/lib/prowlarr",
     port ? 9696,
     ...
   }: {
+    name = "prowlarr-svc/${user}";
     includes = [
-      (den.aspects.vpn-namespaced {
+      (hayes.vpn-namespaced {
         name = "prowlarr";
         inherit user port;
         execCommand = pkgs: "${pkgs.prowlarr}/bin/Prowlarr -nobrowser -data=${dataDir}";

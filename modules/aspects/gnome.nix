@@ -1,5 +1,5 @@
 {
-  den.aspects.gnome = {
+  hayes.gnome = {
     autoLoginUser ? null,
     keyboardLayout ? "us",
     keyboardVariant ? "",

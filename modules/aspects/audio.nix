@@ -1,5 +1,5 @@
 {
-  den.aspects.audio.nixos = {
+  hayes.audio.nixos = {
     services = {
       pulseaudio.enable = false;
       pipewire = {

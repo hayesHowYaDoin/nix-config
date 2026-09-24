@@ -1,5 +1,5 @@
 {
-  den.aspects.vm-guest.nixos = {
+  hayes.vm-guest.nixos = {
     boot.initrd.kernelModules = [
       "virtio_balloon"
       "virtio_console"

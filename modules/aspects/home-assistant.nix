@@ -1,5 +1,5 @@
 {
-  den.aspects.home-assistant.nixos = {pkgs, ...}: let
+  hayes.home-assistant.nixos = {pkgs, ...}: let
     hacs = pkgs.fetchzip {
       url = "https://github.com/hacs/integration/releases/download/2.0.1/hacs.zip";
       sha256 = "sha256-eKTdksAKEU07y9pbHmTBl1d8L25eP/Y4VlYLubQRDmo=";

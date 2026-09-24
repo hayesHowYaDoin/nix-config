@@ -1,7 +1,7 @@
-{den, ...}: {
-  den.aspects.jellyfin = {
+{hayes, ...}: {
+  hayes.jellyfin = {
     includes = [
-      (den.aspects.tailscale-funnel {
+      (hayes.tailscale-funnel {
         name = "jellyfin";
         port = 8096;
       })

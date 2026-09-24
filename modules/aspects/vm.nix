@@ -6,7 +6,7 @@
   # named VM into host-level features like single-GPU passthrough hooks.
   #
   # Requires the `virtualization` aspect to be included on the same host.
-  den.aspects.vm = {
+  hayes.vm = {
     name,
     enableGpuPassthrough ? false,
     ...

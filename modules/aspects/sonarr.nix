@@ -1,5 +1,5 @@
 {
-  den.aspects.sonarr.nixos = {pkgs, ...}: {
+  hayes.sonarr.nixos = {pkgs, ...}: {
     services.sonarr = {
       enable = true;
       openFirewall = true;

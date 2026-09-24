@@ -1,5 +1,5 @@
 {
-  den.aspects.tailscale-funnel = {
+  hayes.tailscale-funnel = {
     name,
     port,
     httpsPort ? null,

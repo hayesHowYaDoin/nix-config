@@ -1,5 +1,5 @@
 {
-  den.aspects.podman.nixos = {
+  hayes.podman.nixos = {
     virtualisation.podman = {
       enable = true;
       dockerCompat = true;

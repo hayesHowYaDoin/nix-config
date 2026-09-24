@@ -1,5 +1,5 @@
-{den, ...}: {
-  den.aspects.calibre = {
+{hayes, ...}: {
+  hayes.calibre = {
     libraryPath,
     port ? 8083,
     tailscalePort ? null,
@@ -7,7 +7,7 @@
   }: {
     includes =
       [
-        (den.aspects.tailscale-funnel {
+        (hayes.tailscale-funnel {
           name = "calibre";
           inherit port;
           httpsPort =

@@ -1,5 +1,5 @@
 {
-  den.aspects.nvidia.nixos = {
+  hayes.nvidia.nixos = {
     services.xserver.videoDrivers = ["nvidia"];
     hardware = {
       graphics.enable = true;

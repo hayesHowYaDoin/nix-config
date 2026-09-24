@@ -1,5 +1,5 @@
 {
-  den.aspects.network-manager.nixos = {
+  hayes.network-manager.nixos = {
     networking.networkmanager.enable = true;
   };
 }

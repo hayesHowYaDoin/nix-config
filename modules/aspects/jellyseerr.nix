@@ -1,5 +1,5 @@
 {
-  den.aspects.jellyseerr.nixos = {
+  hayes.jellyseerr.nixos = {
     services.seerr = {
       enable = true;
       openFirewall = true;

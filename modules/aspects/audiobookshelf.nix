@@ -1,5 +1,5 @@
 {
-  den.aspects.audiobookshelf.nixos = {
+  hayes.audiobookshelf.nixos = {
     services.audiobookshelf = {
       enable = true;
       host = "0.0.0.0";

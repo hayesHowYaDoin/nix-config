@@ -1,5 +1,5 @@
-{den, ...}: {
-  den.aspects.vaultwarden = {
+{hayes, ...}: {
+  hayes.vaultwarden = {
     dataDir ? "/var/lib/vaultwarden",
     port ? 8222,
     domain ? null,
@@ -7,7 +7,7 @@
     ...
   }: {
     includes = [
-      (den.aspects.tailscale-serve {
+      (hayes.tailscale-serve {
         name = "vaultwarden";
         inherit port;
       })

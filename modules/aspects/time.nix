@@ -1,5 +1,5 @@
 {
-  den.aspects.time.nixos = {
+  hayes.time.nixos = {
     time.timeZone = "America/Denver";
   };
 }

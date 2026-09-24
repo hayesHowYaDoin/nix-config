@@ -1,5 +1,5 @@
 {
-  den.aspects.uptime-kuma.nixos = {
+  hayes.uptime-kuma.nixos = {
     services.uptime-kuma = {
       enable = true;
       settings = {

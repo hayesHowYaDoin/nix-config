@@ -1,5 +1,5 @@
-{den, ...}: {
-  den.aspects.staging.includes = with den.aspects; [
+{hayes, ...}: {
+  den.aspects.staging.includes = with hayes; [
     tailscale
     tailscale-ssh
     vm-guest

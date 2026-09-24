@@ -1,5 +1,5 @@
 {
-  den.aspects.tailscale.nixos = {
+  hayes.tailscale.nixos = {
     services.tailscale.enable = true;
     services.resolved.enable = true;
 

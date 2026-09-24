@@ -1,5 +1,5 @@
 {
-  den.aspects.sleepless.nixos = {
+  hayes.sleepless.nixos = {
     systemd.sleep.settings.Sleep = {
       AllowSuspend = "no";
       AllowHibernation = "no";

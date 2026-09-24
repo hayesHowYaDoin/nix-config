@@ -1,5 +1,5 @@
 {
-  den.aspects.immich = {
+  hayes.immich = {
     mediaLocation,
     port ? 2283,
     ...

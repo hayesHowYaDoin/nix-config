@@ -1,13 +1,14 @@
-{den, ...}: {
-  den.aspects.qbittorrent = {
+{hayes, ...}: {
+  hayes.qbittorrent = {
     downloadsDir,
     user ? "qbittorrent",
     dataDir ? "/var/lib/qbittorrent",
     port ? 8080,
     ...
   }: {
+    name = "qbittorrent-svc/${user}";
     includes = [
-      (den.aspects.vpn-namespaced {
+      (hayes.vpn-namespaced {
         name = "qbittorrent-nox";
         inherit user port;
         execCommand = pkgs: "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=${toString port} --profile=${dataDir}";

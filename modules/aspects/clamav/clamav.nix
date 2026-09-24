@@ -1,5 +1,5 @@
 {
-  den.aspects.clamav = {
+  hayes.clamav = {
     quarantineDir,
     logDir ? "/var/log/virus-scan",
     useVirusTotal ? false,

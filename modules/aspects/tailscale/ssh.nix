@@ -1,5 +1,5 @@
 {
-  den.aspects.tailscale-ssh.nixos = {
+  hayes.tailscale-ssh.nixos = {
     services.tailscale.extraSetFlags = ["--ssh"];
   };
 }

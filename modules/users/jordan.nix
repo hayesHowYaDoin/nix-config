@@ -1,9 +1,13 @@
-{den, ...}: {
+{
+  den,
+  hayes,
+  ...
+}: {
   den.aspects.jordan = {
     includes = [
       den.batteries.define-user
       den.batteries.primary-user
-      den.aspects.git
+      hayes.git
     ];
 
     nixos = {pkgs, ...}: {

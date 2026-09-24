@@ -1,5 +1,5 @@
 {
-  den.aspects.tailscale-serve = {
+  hayes.tailscale-serve = {
     name,
     port,
     upstream ? "http://localhost:${toString port}",

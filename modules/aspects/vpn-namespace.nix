@@ -1,5 +1,5 @@
 {
-  den.aspects.vpn-namespace.nixos = {pkgs, ...}: {
+  hayes.vpn-namespace.nixos = {pkgs, ...}: {
     environment.systemPackages = [pkgs.iproute2];
 
     systemd.services.vpn-netns-setup = {

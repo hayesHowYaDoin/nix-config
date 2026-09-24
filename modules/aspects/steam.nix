@@ -1,5 +1,5 @@
 {
-  den.aspects.steam.nixos = {
+  hayes.steam.nixos = {
     programs.steam = {
       enable = true;
       remotePlay.openFirewall = true;

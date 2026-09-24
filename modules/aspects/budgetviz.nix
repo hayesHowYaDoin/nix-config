@@ -1,5 +1,5 @@
 {inputs, ...}: {
-  den.aspects.budgetviz.nixos = {
+  hayes.budgetviz.nixos = {
     imports = [inputs.budgetviz.nixosModules.default];
 
     services.budgetviz = {

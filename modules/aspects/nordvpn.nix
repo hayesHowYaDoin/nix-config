@@ -1,5 +1,5 @@
 {
-  den.aspects.nordvpn = {
+  hayes.nordvpn = {
     region ? "us",
     ...
   }: {

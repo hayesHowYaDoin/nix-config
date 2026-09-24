@@ -1,5 +1,5 @@
 {
-  den.aspects.samba = {
+  hayes.samba = {
     user,
     shares,
     workgroup ? "WORKGROUP",

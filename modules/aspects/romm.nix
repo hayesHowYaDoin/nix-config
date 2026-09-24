@@ -1,7 +1,7 @@
-{den, ...}: {
-  den.aspects.romm = {
+{hayes, ...}: {
+  hayes.romm = {
     includes = [
-      (den.aspects.tailscale-serve {
+      (hayes.tailscale-serve {
         name = "romm";
         port = 9002;
       })

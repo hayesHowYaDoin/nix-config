@@ -1,5 +1,5 @@
 {
-  den.aspects.virtualization = {
+  hayes.virtualization = {
     user,
     enableNestedVirt ? true,
     swtpm ? true,
