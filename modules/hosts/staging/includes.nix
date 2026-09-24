@@ -1,5 +1,6 @@
 {hayes, ...}: {
   den.aspects.staging.includes = with hayes; [
+    network-manager
     tailscale
     tailscale-ssh
     vm-guest
@@ -11,5 +12,6 @@
     sonarr
     (byparr {})
     budgetviz
+    (gnome {autoLoginUser = "jordan";})
   ];
 }

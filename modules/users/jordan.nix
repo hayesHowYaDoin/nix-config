@@ -8,6 +8,11 @@
       den.batteries.define-user
       den.batteries.primary-user
       hayes.git
+      (hayes.ghostty {
+        opacity = 0.8;
+        windowDecoration = false;
+      })
+      (hayes.gnome {autoLoginUser = "jordan";})
     ];
 
     nixos = {pkgs, ...}: {
