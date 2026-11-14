@@ -4,9 +4,11 @@
 keys:
   - &sevarian  age1td5qpq9pafpwwu9dlm73ryn7n7pqgddxj2fdu8c6q4ku2v4vee0q3expkm
   - &mort age1zjkuq2a5399xggvynxy7q8nuexw34hxl04ypephqd00ndexnrcnqkkgfpg
+  - &blackbart age1nfx3mxvtvvfqmdp0ytt26f5550pxk4aspjk7k0yr22vgs3r9ju6skg6zwk
 creation_rules:
   - path_regex: secrets/secrets\.yaml$
     key_groups:
       - age:
           - *sevarian
           - *mort
+          - *blackbart

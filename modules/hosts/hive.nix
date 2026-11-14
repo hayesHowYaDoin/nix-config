@@ -14,5 +14,12 @@
       deployment.targetHost = "192.168.122.143";
       deployment.targetUser = "jordan";
     };
+
+    blackbart = {
+      imports = self.nixosConfigurations.blackbart._module.args.modules or [];
+      # deployment.targetHost = "blackbart";
+      deployment.targetHost = "192.168.10.227";
+      deployment.targetUser = "jordan";
+    };
   };
 }
