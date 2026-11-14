@@ -4,7 +4,6 @@
     i18n
     tailscale
     tailscale-ssh
-    (openssh {passwordAuthentication = true;})
     # (nordvpn {})
     # vpn-killswitch
   ];
