@@ -1,6 +1,21 @@
 {
-  hayes.vpn-killswitch.nixos = {
+  hayes.vpn-killswitch.nixos = {pkgs, ...}: {
+    environment.systemPackages = [pkgs.nftables];
+
+    # Route all DNS through Tailscale's MagicDNS at 100.100.100.100.
+    # Allows for non-ISP resolver and prevents need to manually diagnose
+    # changes in VPN domain.
+    services.resolved.settings.Resolve = {
+      DNS = ["100.100.100.100"];
+      Domains = ["~."];
+    };
+
     networking.nftables.enable = true;
+
+    # cgroupv2 path matching can't be validated in the build sandbox (the
+    # tailscaled.service cgroup doesn't exist until runtime).
+    # Rules seem to load fine on the live system.
+    networking.nftables.checkRuleset = false;
 
     networking.nftables.tables.killswitch = {
       family = "inet";
