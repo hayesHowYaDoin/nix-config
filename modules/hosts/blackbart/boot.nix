@@ -12,6 +12,11 @@
       initrd.kernelModules = [];
       kernelModules = ["kvm-intel"];
       extraModulePackages = [];
+
+      loader = {
+        systemd-boot.enable = true;
+        efi.canTouchEfiVariables = true;
+      };
     };
   };
 }
