@@ -1,4 +1,4 @@
-{hayes, ...}: {
+{
   hayes.prowlarr = {
     user ? "prowlarr",
     dataDir ? "/var/lib/prowlarr",
@@ -6,14 +6,6 @@
     ...
   }: {
     name = "prowlarr-svc/${user}";
-    includes = [
-      (hayes.vpn-namespaced {
-        name = "prowlarr";
-        inherit user port;
-        execCommand = pkgs: "${pkgs.prowlarr}/bin/Prowlarr -nobrowser -data=${dataDir}";
-        extraEnv.DOTNET_SYSTEM_NET_DISABLEIPV6 = "1";
-      })
-    ];
 
     nixos = {pkgs, ...}: {
       environment.systemPackages = [pkgs.prowlarr];
@@ -27,6 +19,26 @@
         createHome = true;
       };
       users.groups.${user} = {};
+
+      systemd.services.prowlarr = {
+        description = "Prowlarr (${user})";
+        after = ["network-online.target"];
+        wants = ["network-online.target"];
+        wantedBy = ["multi-user.target"];
+
+        # .NET tries IPv6 first; on a killswitched host where v6 is blocked
+        # this adds a multi-second delay to every outbound call. Disable it.
+        environment.DOTNET_SYSTEM_NET_DISABLEIPV6 = "1";
+
+        serviceConfig = {
+          Type = "simple";
+          User = user;
+          Group = user;
+          ExecStart = "${pkgs.prowlarr}/bin/Prowlarr -nobrowser -data=${dataDir}";
+          Restart = "on-failure";
+          RestartSec = "10s";
+        };
+      };
     };
   };
 }

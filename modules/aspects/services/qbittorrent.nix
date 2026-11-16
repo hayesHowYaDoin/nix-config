@@ -1,4 +1,4 @@
-{hayes, ...}: {
+{
   hayes.qbittorrent = {
     downloadsDir,
     user ? "qbittorrent",
@@ -7,13 +7,6 @@
     ...
   }: {
     name = "qbittorrent-svc/${user}";
-    includes = [
-      (hayes.vpn-namespaced {
-        name = "qbittorrent-nox";
-        inherit user port;
-        execCommand = pkgs: "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=${toString port} --profile=${dataDir}";
-      })
-    ];
 
     nixos = {pkgs, ...}: {
       environment.systemPackages = [pkgs.qbittorrent-nox];
@@ -27,6 +20,22 @@
         createHome = true;
       };
       users.groups.${user} = {};
+
+      systemd.services.qbittorrent = {
+        description = "qBittorrent-nox (${user})";
+        after = ["network-online.target"];
+        wants = ["network-online.target"];
+        wantedBy = ["multi-user.target"];
+
+        serviceConfig = {
+          Type = "simple";
+          User = user;
+          Group = user;
+          ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=${toString port} --profile=${dataDir}";
+          Restart = "on-failure";
+          RestartSec = "10s";
+        };
+      };
 
       system.activationScripts."qbittorrent-${user}-config" = {
         text = ''
@@ -43,7 +52,8 @@
           BitTorrent\Session\DefaultSavePath=${downloadsDir}
           EOF
           fi
-          chown -R ${user}:${user} ${dataDir}
+          mkdir -p ${downloadsDir}
+          chown -R ${user}:${user} ${dataDir} ${downloadsDir}
           chmod 600 ${dataDir}/qBittorrent/config/qBittorrent.conf
         '';
         deps = [];
