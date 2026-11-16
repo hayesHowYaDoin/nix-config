@@ -1,6 +1,7 @@
 {hayes, ...}: {
   den.aspects.blackbart.includes = with hayes; [
     sops
+    sleepless
     i18n
     tailscale
     tailscale-ssh
