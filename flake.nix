@@ -17,10 +17,16 @@
     nixgl.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+    microvm.url = "github:astro/microvm.nix";
+    microvm.inputs.nixpkgs.follows = "nixpkgs";
     budgetviz.url = "github:hayesHowYaDoin/budgetviz";
     budgetviz.inputs.nixpkgs.follows = "nixpkgs";
     wheel-wizard-nix.url = "github:hayesHowYaDoin/wheel-wizard-nix";
     wheel-wizard-nix.inputs.nixpkgs.follows = "nixpkgs";
+    yara-signature-base = {
+      url = "github:Neo23x0/signature-base";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {

@@ -203,6 +203,27 @@
         "type": "github"
       }
     },
+    "microvm": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "spectrum": "spectrum"
+      },
+      "locked": {
+        "lastModified": 1795106485,
+        "narHash": "sha256-cK+o/P3zE/1GW68p0URGGaI0mx8fAj2EAyG9CNmOII0=",
+        "owner": "astro",
+        "repo": "microvm.nix",
+        "rev": "d70265960646e506757f8364e8585c17a06050e7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "astro",
+        "repo": "microvm.nix",
+        "type": "github"
+      }
+    },
     "mnw": {
       "locked": {
         "lastModified": 1784154424,
@@ -352,12 +373,14 @@
         "flake-parts": "flake-parts_2",
         "home-manager": "home-manager",
         "import-tree": "import-tree",
+        "microvm": "microvm",
         "nixgl": "nixgl",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "nvf": "nvf",
         "sops-nix": "sops-nix",
-        "wheel-wizard-nix": "wheel-wizard-nix"
+        "wheel-wizard-nix": "wheel-wizard-nix",
+        "yara-signature-base": "yara-signature-base"
       }
     },
     "sops-nix": {
@@ -378,6 +401,22 @@
         "owner": "Mic92",
         "repo": "sops-nix",
         "type": "github"
+      }
+    },
+    "spectrum": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1786032750,
+        "narHash": "sha256-+Ba/kIn5BjvV7PN8bWOo7RoqgTY/Yv2M7qeMf3wS2Ag=",
+        "ref": "refs/heads/main",
+        "rev": "77d2389874bb092b8dbf05ecc5b1030372e80e98",
+        "revCount": 1417,
+        "type": "git",
+        "url": "https://spectrum-os.org/git/spectrum"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://spectrum-os.org/git/spectrum"
       }
     },
     "stable": {
@@ -474,6 +513,22 @@
       "original": {
         "owner": "hayesHowYaDoin",
         "repo": "wheel-wizard-nix",
+        "type": "github"
+      }
+    },
+    "yara-signature-base": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1795346315,
+        "narHash": "sha256-0sQOTj00wrlf/laTyBe016YF/rfA6g2ALIcZnQau9ek=",
+        "owner": "Neo23x0",
+        "repo": "signature-base",
+        "rev": "fffcaa4d3931d791a2553f01457966144418a316",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Neo23x0",
+        "repo": "signature-base",
         "type": "github"
       }
     }

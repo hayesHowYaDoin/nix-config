@@ -34,6 +34,34 @@
           ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=${toString port} --profile=${dataDir}";
           Restart = "on-failure";
           RestartSec = "10s";
+
+          # Hardening. qBit is on the network, handles untrusted peer
+          # input, and is the single most likely service on this host to
+          # be RCE'd. Lock it down so a compromise can't walk off this box.
+          NoNewPrivileges = true;
+          PrivateTmp = true;
+          PrivateDevices = true;
+          ProtectSystem = "strict";
+          ProtectHome = true;
+          ProtectKernelTunables = true;
+          ProtectKernelModules = true;
+          ProtectKernelLogs = true;
+          ProtectControlGroups = true;
+          ProtectClock = true;
+          ProtectHostname = true;
+          ProtectProc = "invisible";
+          RestrictNamespaces = true;
+          RestrictRealtime = true;
+          RestrictSUIDSGID = true;
+          LockPersonality = true;
+          MemoryDenyWriteExecute = true;
+          RestrictAddressFamilies = ["AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK"];
+          SystemCallArchitectures = "native";
+          SystemCallFilter = ["@system-service" "~@privileged" "~@resources"];
+          CapabilityBoundingSet = [];
+          AmbientCapabilities = [];
+          ReadWritePaths = [dataDir downloadsDir];
+          UMask = "0077";
         };
       };
 
