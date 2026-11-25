@@ -2,6 +2,12 @@
 # one file, waits for the container to write a verdict, relays it.
 #
 # Companion inside the container: runner.nu (same dir).
+#
+# Exit code contract (consumed by scan.nu → stage.nu):
+#   0 = clean, 1 = match, 2 = error, 3 = warn
+# The stdout payload is a short human-readable summary (ntfy body).
+# Full per-scanner detail is persisted inside the VM at
+# /torrent-scan/reports.ndjson — see runner.nu.
 
 def acquire-lock [lock: path, timeout_sec: int] {
   let deadline = ((date now) + ($timeout_sec * 1sec))
@@ -12,6 +18,24 @@ def acquire-lock [lock: path, timeout_sec: int] {
       error make {msg: $"timeout acquiring lock ($lock) — if a previous run crashed, rm the lockfile manually"}
     }
     sleep 1sec
+  }
+}
+
+def status-to-exit [status: string]: nothing -> int {
+  match $status {
+    "clean" => 0
+    "match" => 1
+    "warn"  => 3
+    _       => 2
+  }
+}
+
+def format-output [verdict: record]: nothing -> string {
+  match $verdict.status {
+    "clean" => "pass"
+    "match" => $"fail: ($verdict.summary)"
+    "warn"  => $"warn: ($verdict.summary)"
+    _       => $"error: ($verdict.summary)"
   }
 }
 
@@ -29,8 +53,7 @@ export def dispatch [
   let result = (try {
     let id = (random uuid | str substring 0..7)
     let queue = ($shared_dir | path join "queue" $id)
-    let done_exit = ($shared_dir | path join "done" $"($id).exit")
-    let done_out = ($shared_dir | path join "done" $"($id).out")
+    let done = ($shared_dir | path join "done" $"($id).nuon")
 
     # cp not ln: /var/lib/torrent-scan and /var/lib/qbittorrent are on
     # separate bind mounts, and link(2) refuses to hardlink across mount
@@ -47,16 +70,14 @@ export def dispatch [
       ^systemctl start --wait container@torrent-scan.service
     } catch { }
 
-    if not ($done_exit | path exists) {
+    if not ($done | path exists) {
       try { rm $queue } catch { }
       error make {msg: "container exited without writing done file — check `journalctl -u container@torrent-scan`"}
     }
 
-    let exit_code = (open --raw $done_exit | str trim | into int)
-    let output = (open --raw $done_out)
-    rm $done_exit
-    rm $done_out
-    {ok: {output: $output, exit_code: $exit_code}}
+    let verdict = (open --raw $done | from nuon)
+    rm $done
+    {ok: $verdict}
   } catch {|e|
     {err: $e.msg}
   })
@@ -68,6 +89,6 @@ export def dispatch [
     exit 2
   }
 
-  print -n $result.ok.output
-  exit $result.ok.exit_code
+  print -n (format-output $result.ok)
+  exit (status-to-exit $result.ok.status)
 }

@@ -53,7 +53,7 @@ const BANNED_EXTS = [
 ]
 
 export def mime-classify [file: path] {
-  let ext = ($file | path parse | get extension | str lowercase)
+  let ext = ($file | path parse | get extension | str downcase)
   let mime = (^file --brief --mime-type $file | str trim)
 
   if $ext in $BANNED_EXTS {

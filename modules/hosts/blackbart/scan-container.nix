@@ -8,20 +8,13 @@
     pkgs,
     ...
   }: let
-    # YARA rules from Neo23x0/signature-base, pinned via flake input.
-    # Only the yara/ subdir is relevant; everything else in that repo is
-    # ClamAV sigs or IOCs for other tools. Materialize as a plain
-    # directory in the store so it can be bind-mounted into the
-    # container read-only.
     yaraRules = pkgs.runCommand "yara-rules" {} ''
       mkdir -p $out
       cp -r ${inputs.yara-signature-base}/yara/. $out/
     '';
   in {
     # Host owns the ClamAV sig DB (freshclam updates it); the container
-    # bind-mounts it read-only. Third-party SaneSecurity feeds roughly
-    # double real-world detection vs. the default ClamAV set, especially
-    # on recent PE/PHP/malscript payloads.
+    # bind-mounts it read-only.
     services.clamav.updater.enable = true;
     services.clamav.updater.settings = {
       DatabaseCustomURL = [
@@ -40,7 +33,6 @@
       ];
     };
 
-    # Resource cap on the container's cgroup slice.
     systemd.slices."torrent-scan-container" = {
       description = "Resource slice for the torrent-scan nspawn container";
       sliceConfig = {
@@ -50,13 +42,9 @@
       };
     };
 
-    # Declarative NixOS container. `autoStart = false` keeps it off at
-    # boot; sandbox.nu starts it on demand. `ephemeral = true` gives
-    # every launch a fresh overlayfs rootfs — no state persists between
-    # scans.
     containers.torrent-scan = {
-      autoStart = false;
-      ephemeral = true;
+      autoStart = false; # Started on demand
+      ephemeral = true; # Fresh each launch
       privateNetwork = true;
       enableTun = false;
 
@@ -79,12 +67,11 @@
         system.stateVersion = "25.11";
 
         environment.systemPackages = [pkgs.clamav pkgs.yara pkgs.nushell];
-        environment.etc."torrent-scan/runner.nu".source =
-          "${self}/scripts/filesystem/scan/runner.nu";
-        environment.etc."torrent-scan/clamscan.nu".source =
-          "${self}/scripts/filesystem/scan/clamscan.nu";
-        environment.etc."torrent-scan/yara.nu".source =
-          "${self}/scripts/filesystem/scan/yara.nu";
+
+        environment.etc."nu/filesystem" = {
+          source = "${self}/scripts/filesystem";
+          mode = "0755";
+        };
 
         systemd.services.scan-runner = {
           wantedBy = ["multi-user.target"];
@@ -92,7 +79,8 @@
           serviceConfig = {
             Type = "oneshot";
             TimeoutStartSec = "5min";
-            ExecStart = "${pkgs.nushell}/bin/nu /etc/torrent-scan/runner.nu";
+            ExecStart = "${pkgs.nushell}/bin/nu /etc/nu/filesystem/scan/runner.nu";
+            Environment = "NU_LIB_DIRS=/etc/nu:/etc/nu/filesystem";
             StandardOutput = "journal+console";
             StandardError = "journal+console";
           };
@@ -100,10 +88,6 @@
       };
     };
 
-    # Place the container's systemd unit in our resource-capped slice,
-    # and prevent auto-restart. Container is one-shot per scan; sandbox.nu
-    # explicitly starts it, tolerates non-zero exit, and reads the done
-    # file written by runner.nu as ground truth.
     systemd.services."container@torrent-scan".serviceConfig = {
       Slice = lib.mkForce "torrent-scan-container.slice";
       Restart = lib.mkForce "no";

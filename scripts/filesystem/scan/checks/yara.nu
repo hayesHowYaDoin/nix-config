@@ -5,16 +5,16 @@
 # variables that don't survive naive concatenation. Per-file is slower
 # but correct.
 #
-# One file in, {output, exit_code} out. Matches semantics of clamscan.nu:
-#   exit 0 → clean
-#   exit 1 → match found (hostile)
-#   exit 2 → scan error
+# Returns the shared scanner-result record:
+#   {scanner: "yara", status: "clean"|"match"|"warn"|"error", detail: string}
+# "warn" means the scan completed but some rule files failed to compile —
+# signature-base occasionally ships rules that need modules we don't have.
 
 const RULES_DIR = "/var/lib/yara-rules"
 
 export def main [file: path] {
   if not ($RULES_DIR | path exists) {
-    return {output: "error: yara rules dir missing", exit_code: 2}
+    return {scanner: "yara", status: "error", detail: "rules dir missing"}
   }
 
   let rule_files = (
@@ -23,11 +23,11 @@ export def main [file: path] {
     | get name
   )
   if ($rule_files | is-empty) {
-    return {output: "error: no yara rules found", exit_code: 2}
+    return {scanner: "yara", status: "error", detail: "no rules found"}
   }
 
   mut matches = []
-  mut had_error = false
+  mut skipped = []
 
   for rf in $rule_files {
     let r = (^yara --no-warnings $rf $file | complete)
@@ -38,24 +38,21 @@ export def main [file: path] {
       $matches = ($matches | append $out)
     }
     if $r.exit_code != 0 and ($out | str length) == 0 {
-      # Compile/parse error on this rule file — log but don't fail the
-      # whole scan on one bad rule. signature-base occasionally ships
-      # rules that need modules we don't have.
-      $had_error = true
+      $skipped = ($skipped | append ($rf | path basename))
     }
   }
 
   if not ($matches | is-empty) {
-    let sig = ($matches | str join "; ")
-    return {output: $"fail: yara ($sig)", exit_code: 1}
+    return {scanner: "yara", status: "match", detail: ($matches | str join "; ")}
   }
 
-  if $had_error {
-    # Scan completed with some rule-file errors but no matches. Treat
-    # as pass to avoid false-negative-via-error — we still have ClamAV
-    # as a parallel engine. Error details go to the container log.
-    return {output: "pass (yara: some rules skipped)", exit_code: 0}
+  if not ($skipped | is-empty) {
+    return {
+      scanner: "yara",
+      status: "warn",
+      detail: $"($skipped | length) rules skipped: ($skipped | str join ', ')",
+    }
   }
 
-  {output: "pass", exit_code: 0}
+  {scanner: "yara", status: "clean", detail: ""}
 }

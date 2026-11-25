@@ -1,7 +1,9 @@
 # Pure ClamAV scan. Standalone `clamscan` binary — loads sigs, scans
 # one file, exits. No daemon, no socket, no ConcurrentDatabaseReload.
 # Right tool for our ephemeral-VM-per-scan model.
-# One file in, {output, exit_code} out. Caller handles I/O.
+#
+# Returns the shared scanner-result record:
+#   {scanner: "clamscan", status: "clean"|"match"|"error", detail: string}
 
 export def main [file: path] {
   let r = (^clamscan --no-summary --database=/var/lib/clamav $file | complete)
@@ -10,10 +12,10 @@ export def main [file: path] {
       $r.stdout | parse --regex '.*: (?<sig>.+) FOUND'
       | get sig?.0? | default "unknown"
     )
-    return {output: $"fail: clamav ($sig)", exit_code: 1}
+    return {scanner: "clamscan", status: "match", detail: $sig}
   }
   if $r.exit_code != 0 {
-    return {output: $"error: ($r.stderr | str trim)", exit_code: 2}
+    return {scanner: "clamscan", status: "error", detail: ($r.stderr | str trim)}
   }
-  {output: "pass", exit_code: 0}
+  {scanner: "clamscan", status: "clean", detail: ""}
 }

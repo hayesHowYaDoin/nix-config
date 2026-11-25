@@ -11,7 +11,7 @@
 # State is persisted at --state-file as nuon-encoded text so subsequent
 # runs skip files that are unchanged.
 
-use ./notify.nu ntfy
+use ../notify.nu
 
 def unlink-staging [staging: path, rel: path] {
   let link = ($staging | path join $rel)
@@ -38,6 +38,9 @@ def main [
   mkdir $staging
   mkdir $quarantine
   mkdir ($state_file | path dirname)
+
+  # Resolve the sops-managed URL once; empty string = ntfy disabled.
+  let ntfy_url = (notify url-from-file $ntfy_url_file)
 
   # ls with a glob errors if nothing matches, so guard the glob with a
   # non-glob check first. Empty downloads dir is normal, not exceptional.
@@ -88,7 +91,7 @@ def main [
           mkdir ($dst | path dirname)
           ln -f $it.name $dst
           print $"pass: ($rel)"
-          ntfy $ntfy_url_file "blackbart staged" $rel --priority "low" --tags "inbox_tray"
+          notify publish $ntfy_url $rel --title "blackbart staged" --priority "low" --tags "inbox_tray"
           $it
         }
         1 => {
@@ -100,8 +103,21 @@ def main [
           let out = ($r.stdout | str trim)
           let err = ($r.stderr | str trim)
           print $"fail: ($rel): ($out) ($err)"
-          ntfy $ntfy_url_file "blackbart quarantine" $"($rel)\n($out)" --tags "warning,skull"
+          notify publish $ntfy_url $"($rel)\n($out)" --title "blackbart quarantine" --priority "high" --tags "warning,skull"
           null
+        }
+        3 => {
+          # Scan completed but at least one scanner was degraded. Stage
+          # the file like a pass — nothing hostile was detected — but
+          # surface the degradation so it doesn't go unnoticed. Full
+          # per-scanner detail lives in the VM's reports.ndjson.
+          let dst = ($staging | path join $rel)
+          mkdir ($dst | path dirname)
+          ln -f $it.name $dst
+          let out = ($r.stdout | str trim)
+          print $"warn: ($rel): ($out)"
+          notify publish $ntfy_url $"($rel)\n($out)" --title "blackbart staged (warning)" --tags "warning"
+          $it
         }
         _ => {
           print -e $"error: ($rel): exit ($r.exit_code): ($r.stdout | str trim) ($r.stderr | str trim)"

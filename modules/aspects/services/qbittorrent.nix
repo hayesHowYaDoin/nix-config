@@ -4,11 +4,16 @@
     user ? "qbittorrent",
     dataDir ? "/var/lib/qbittorrent",
     port ? 8080,
+    incompleteDir ? null,
     ...
   }: {
     name = "qbittorrent-svc/${user}";
 
-    nixos = {pkgs, ...}: {
+    nixos = {
+      pkgs,
+      lib,
+      ...
+    }: {
       environment.systemPackages = [pkgs.qbittorrent-nox];
 
       networking.firewall.allowedTCPPorts = [port];
@@ -35,9 +40,6 @@
           Restart = "on-failure";
           RestartSec = "10s";
 
-          # Hardening. qBit is on the network, handles untrusted peer
-          # input, and is the single most likely service on this host to
-          # be RCE'd. Lock it down so a compromise can't walk off this box.
           NoNewPrivileges = true;
           PrivateTmp = true;
           PrivateDevices = true;
@@ -60,7 +62,7 @@
           SystemCallFilter = ["@system-service" "~@privileged" "~@resources"];
           CapabilityBoundingSet = [];
           AmbientCapabilities = [];
-          ReadWritePaths = [dataDir downloadsDir];
+          ReadWritePaths = [dataDir downloadsDir] ++ lib.optional (incompleteDir != null) incompleteDir;
           UMask = "0077";
         };
       };
@@ -74,14 +76,21 @@
           WebUI\Address=0.0.0.0
           WebUI\Port=${toString port}
           Downloads\SavePath=${downloadsDir}
-          General\UseRandomPort=false
+          ${lib.optionalString (incompleteDir != null) ''
+            Downloads\TempPathEnabled=true
+            Downloads\TempPath=${incompleteDir}
+          ''}General\UseRandomPort=false
           Connection\PortRangeMin=6881
           Advanced\RecheckOnCompletion=false
           BitTorrent\Session\DefaultSavePath=${downloadsDir}
-          EOF
+          ${lib.optionalString (incompleteDir != null) ''
+            BitTorrent\Session\TempPathEnabled=true
+            BitTorrent\Session\TempPath=${incompleteDir}
+          ''}EOF
           fi
           mkdir -p ${downloadsDir}
-          chown -R ${user}:${user} ${dataDir} ${downloadsDir}
+          ${lib.optionalString (incompleteDir != null) "mkdir -p ${incompleteDir}"}
+          chown -R ${user}:${user} ${dataDir} ${downloadsDir} ${lib.optionalString (incompleteDir != null) incompleteDir}
           chmod 600 ${dataDir}/qBittorrent/config/qBittorrent.conf
         '';
         deps = [];

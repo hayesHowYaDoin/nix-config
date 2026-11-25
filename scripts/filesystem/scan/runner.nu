@@ -9,15 +9,31 @@
 # error, or no-work paths. Any failure that doesn't terminate the script
 # would leave the VM stuck forever.
 #
-# Adding a new scanner for later phases (yara, falco, etc.) means: add
-# `use ./<new>.nu` + a call in the sequence below.
+# Adding a new scanner (falco, capa, etc.) means: implement a .nu that
+# returns {scanner, status, detail}, `use` it, append to SCANNERS.
 
-use ./clamscan.nu
-use ./yara.nu
+use ./checks/clamscan.nu
+use ./checks/yara.nu
+use ./aggregate.nu
 
 # Log file lives on the host via virtiofs — survives VM poweroff.
 # Every runner invocation appends here so we have post-mortem visibility.
 const LOG = "/torrent-scan/runner.log"
+
+# Persistent per-scan report log. One nuon record per line (NDJSON-style).
+# Grep or `open | lines | each { from nuon }` to inspect history on the host.
+const REPORTS = "/torrent-scan/reports.ndjson"
+
+# Scanners run in order. A `match` from any scanner short-circuits the
+# rest — a decisive hit doesn't need corroboration and burning cycles on
+# a confirmed-hostile file wastes the VM's time budget.
+#
+# Must be a function, not a const: closures capturing `use`-imported
+# commands aren't parse-time constants.
+def scanners [] { [
+  {name: "clamscan", fn: {|f| clamscan $f }}
+  {name: "yara",     fn: {|f| yara $f }}
+] }
 
 def log [msg: string] {
   let line = $"(date now | format date '%Y-%m-%d %H:%M:%S') ($msg)"
@@ -35,6 +51,23 @@ def log-meminfo [tag: string] {
   log $"meminfo [($tag)]: ($info)"
 }
 
+def run-scanners [file: path] {
+  mut results = []
+  for s in (scanners) {
+    log $"run-job: invoking ($s.name)"
+    log-meminfo $"pre-($s.name)"
+    let r = (do $s.fn $file)
+    log-meminfo $"post-($s.name)"
+    log $"run-job: ($s.name) status=($r.status) detail=($r.detail)"
+    $results = ($results | append $r)
+    if $r.status == "match" {
+      log $"run-job: ($s.name) matched — short-circuiting remaining scanners"
+      break
+    }
+  }
+  $results
+}
+
 def run-job [] {
   log "run-job: start"
   log-meminfo "start"
@@ -49,38 +82,23 @@ def run-job [] {
   let id = ($job.name | path basename)
   log $"run-job: picked ($id)"
 
-  log "run-job: invoking clamscan"
-  log-meminfo "pre-clamscan"
-  let clam = (clamscan $job.name)
-  log-meminfo "post-clamscan"
-  log $"run-job: clamscan exit=($clam.exit_code) output=($clam.output)"
+  let results = (run-scanners $job.name)
+  let verdict = (aggregate $results)
+  log $"run-job: verdict=($verdict.status) summary=($verdict.summary)"
 
-  # ClamAV fail is decisive — don't bother running yara.
-  let r = if $clam.exit_code == 1 {
-    $clam
-  } else if $clam.exit_code != 0 {
-    # ClamAV errored. Still try yara so one engine's bad day doesn't
-    # mean no scan happened. If yara also errors we'll surface the
-    # original clamscan error.
-    log "run-job: clamscan errored, trying yara anyway"
-    log-meminfo "pre-yara"
-    let y = (yara $job.name)
-    log-meminfo "post-yara"
-    log $"run-job: yara exit=($y.exit_code) output=($y.output)"
-    if $y.exit_code == 1 { $y } else { $clam }
-  } else {
-    log "run-job: invoking yara"
-    log-meminfo "pre-yara"
-    let y = (yara $job.name)
-    log-meminfo "post-yara"
-    log $"run-job: yara exit=($y.exit_code) output=($y.output)"
-    $y
+  # Ephemeral verdict for sandbox.nu to relay.
+  $verdict | to nuon | save -f --raw $"/torrent-scan/done/($id).nuon"
+
+  # Persistent per-scan record. Keeps per-scanner detail for any file we
+  # scanned so quarantine/warn decisions can be audited later.
+  let report = {
+    timestamp: (date now | format date '%Y-%m-%dT%H:%M:%S%z'),
+    id: $id,
+    verdict: $verdict,
   }
+  let line = ($report | to nuon --raw)
+  $"($line)\n" | save --append --raw $REPORTS
 
-  log $"run-job: final verdict exit=($r.exit_code) output=($r.output)"
-
-  $r.output    | save -f --raw $"/torrent-scan/done/($id).out"
-  $r.exit_code | save -f --raw $"/torrent-scan/done/($id).exit"
   rm $job.name
   log "run-job: done file written, queue cleared"
 }

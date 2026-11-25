@@ -14,10 +14,10 @@
 #
 # Prints the verdict on stdout, exits 0 (pass), 1 (fail), 2 (scan error).
 
-use ./scan/mime-check.nu mime-classify
-use ./scan/hash-lookup.nu hashlookup-check
-use ./scan/virus-total.nu vt-check
-use ./scan/sandbox.nu dispatch
+use ./checks/mime-check.nu mime-classify
+use ./checks/hash-lookup.nu hashlookup-check
+use ./checks/virus-total.nu vt-check
+use ./sandbox.nu dispatch
 
 def main [
   file: path
